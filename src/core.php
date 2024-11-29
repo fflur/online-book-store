@@ -1,54 +1,116 @@
 <?php declare(strict_types = 1);
 
-class Book {
-    private DateTime $pblg_date; // Publishing date.
-    private string $ttle; // Title.
-    private string $athr = "Anonymous"; // Author's ttle.
-    private string $gnre; // Genre.
+class Entity {
+    private int $idfr_code; // Identifier code.
     private string $desc = ""; // Description.
-    private string $pblr; // Publisher.
-    private string $cver_imge_ufrl = ""; // Cover image url.
-    private string $lnge; // Language.
-    private int $idty_code; // Identification code.
-    private int $prce; // Price.
-    private int $qnty = 0; // Quantity.
-    private int $revw_scre = -1; // Review score.
+
+    public function __construct(int $idfr_code) {
+        $this->idfr_code = $idfr_code;
+    }
+
+    final public function getIdentifierCode(): int {
+        return $this->idfr_code;
+    }
+
+    final public function setDescription(string $desc) {
+        $this->desc = $desc;
+    }
+
+    final public function getDescription(string $desc): string {
+        return $this->desc;
+    }
+}
+
+final class Book extends Entity {
+    private DateTime $pblg_date; // Publishing date. (required)
+    private string $ttle; // Title. (required)
+    private string $athr = "Anonymous"; // Author's ttle. (optional)
+    private string $gnre; // Genre. (optional)
+    private string $pblr; // Publisher. (required)
+    private string $cver_imge_ufrl = ""; // Cover image url. (optional)
+    private string $lnge; // Language. (required)
+    private int $prce = 0; // Price. (required)
+    private int $qnty = 0; // Quantity. (optional) TODO: implement interface.
+    private int $revw_scre = -1; // Review score. (optional)
 
     // These parameters are required.
     public function __construct(
+        int $idfr_code,
         string $pblg_date, // This should of the form: yyyy-mm-dd
         string $ttle,
         string $pblr,
         string $lnge,
-        int $idty_code,
-        int $prce,
     ) {
-        $this->idty_code = $idty_code;
+        parent::__construct($idfr_code);
         $this->pblg_date = new DateTime($pblg_date);
         $this->ttle = $ttle;
-        $this->prce = $prce;
         $this->pblr = $pblr;
         $this->lnge = $lnge;
+    }
+
+    public function setPublishingDate(DateTime $pblg_date) {
+        $this->pblg_date = $pblg_date;
+    }
+
+    public function getPublishingDate(): string {
+        return $this->pblg_date;
+    }
+
+    public function updateTitle(string $ttle) {
+        $this->ttle = $ttle;
+    }
+
+    public function getTitle(): string {
+        return $this->ttle;
     }
 
     public function setAuthorTitle(string $athr) {
         $this->athr = $athr;
     }
 
-    public function addGenre(string $gnre) {
-        $this->gnre[] = $gnre;
+    public function getAuthorTitle(): string {
+        return $this->athr = $athr;
     }
 
-    public function setDescription(string $desc) {
-        $this->desc = $desc;
+    public function addGenre(string $gnre) {
+        $this->gnre[$gnre] = $gnre;
+    }
+
+    // FIXME
+    public function removeGenre(string $gnre) {
+        $this->gnre[$gnre];
+    }
+
+    public function updatePublisher(string $pblr) {
+        $this->pblr = $pblr;
+    }
+
+    public function getPublisher(string $pblr): string {
+        $this->pblr;
     }
 
     public function setCoverImageURL(string $cver_imge_ufrl) {
         $this->cver_imge_ufrl = $cver_imge_ufrl;
     }
 
+    public function getCoverImageURL(): string {
+        return $this->cver_imge_ufrl;
+    }
+
+    public function updateLanguage(string $lnge) {
+        $this->lnge = $lnge;
+    }
+
+    public function getLanguage(): string {
+        return $this->lnge;
+    }
+
     public function setPrice(int $prce) {
         $this->prce = $prce;
+    }
+
+    public function getPrice(): int {
+        return $this->prce;
     }
 
     public function updateQuantity(int $qnty) {
@@ -58,30 +120,74 @@ class Book {
     public function updateReviewScore(int $revw_scre) {
         $this->revw_scre = $revw_scre;
     }
+
+    public function getReviewScore(): int {
+        return $this->revw_scre;
+    }
 }
 
-class User {
-    protected int $idfr; // ID.
-    protected int $phne_nmbr; // Phone number.
-    protected string $stte; // State.
-    protected string $city;
-    protected string $user_name; // User name.
-    protected string $mail_addr; // Email address.
+class User extends Entity {
+    private int $phne_nmbr; // Phone number.
+    private string $stte; // State.
+    private string $city;
+    private string $user_name; // Unique.
+    private string $mail_addr; // Email address.
 
     public function __construct(
-        int $idfr,
+        int $idfr_code,
         int $phne_nmbr,
         string $stte,
         string $city,
         string $user_name,
         string $mail_addr,
     ) {
+        parent::__construct($idfe_code);
         $this->idfr = $idfr;
         $this->phne_nmbr = $phne_nmbr;
         $this->stte = $stte;
         $this->city = $city;
         $this->user_name = $user_name;
         $this->mail_addr = $mail_addr;
+    }
+
+    final public function updatePhoneNumber(int $phne_nmbr) {
+        $this->phne_nmbr = $phne_nmbr;
+    }
+
+    final public function getPhoneNumber(): string {
+        return $this->phne_nmbr;
+    }
+
+    final public function updateState(string $stte) {
+        $this->stte = $stte;
+    }
+
+    final public function getState(): string {
+        return $this->stte;
+    }
+
+    final public function updateCity(string $city) {
+        $this->city = $city;
+    }
+
+    final public function getCity(): string {
+        return $this->city;
+    }
+
+    final public function updateUserName(string $user_name) {
+        $this->user_name= $user_name;
+    }
+
+    final public function getUserName(): string {
+        return $this->user_name;
+    }
+
+    final public function updateMailAddr(string $mail_addr) {
+        $this->mail_addr= $mail_addr;
+    }
+
+    final public function getMailAddr(): string {
+        return $this->mail_addr;
     }
 }
 
@@ -138,7 +244,7 @@ class Owner extends User {
     }
 }
 
-// Customer is anyone who buys a book.
+// Customer is anyone who wanna buy a book.
 class Customer extends User {
     private string $frst_name; // Required.
     private string $mdle_name; // Optional.
