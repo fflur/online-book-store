@@ -1,7 +1,7 @@
 <?php
 
 declare(strict_types = 1);
-require(__DIR__ . '../entities/User.php');
+require(__DIR__ . 'User.php');
 
 // Customer is anyone who wanna buy a book.
 class Customer extends User {

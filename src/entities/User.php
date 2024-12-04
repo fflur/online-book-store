@@ -1,7 +1,7 @@
 <?php
 
 declare(strict_types = 1);
-require(__DIR__ . '../entities/Entity.php');
+require(__DIR__ . 'Entity.php');
 
 class User extends Entity {
     private int $phne_nmbr; // Phone number.

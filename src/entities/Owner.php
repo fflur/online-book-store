@@ -1,7 +1,7 @@
 <?php
 
 declare(strict_types = 1);
-require(__DIR__ . '../entities/Owner.php');
+require(__DIR__ . 'Owner.php');
 
 final class Owner extends User {
     private string $frst_name; // Required.
