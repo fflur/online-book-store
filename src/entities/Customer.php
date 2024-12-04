@@ -9,7 +9,25 @@ class Customer extends User {
     private string $mdle_name; // Optional.
     private string $last_name; // Required.
 
-    public function __construct(string $frst_name, string $last_name) {
+    public function __construct(
+        int $idfr,
+        int $phne_nmbr,
+        string $stte,
+        string $city,
+        string $user_name,
+        string $mail_addr,
+        string $frst_name,
+        string $last_name,
+    ) {
+        parent::__construct(
+            $idfr,
+            $phne_nmbr,
+            $stte,
+            $city,
+            $user_name,
+            $mail_addr,
+        );
+
         $this->frst_name = $frst_name;
         $this->last_name = $last_name;
     }
