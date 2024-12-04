@@ -1,5 +1,7 @@
 <?php declare(strict_types = 1);
 
+require("utils.php");
+
 class Entity {
     private int $idfr_code; // Identifier code.
     private string $desc = ""; // Description.
@@ -191,7 +193,7 @@ class User extends Entity {
     }
 }
 
-class Owner extends User {
+final class Owner extends User {
     private string $frst_name; // Required.
     private string $mdle_name; // Optional.
     private string $last_name; // Required.
@@ -249,6 +251,35 @@ class Customer extends User {
     private string $frst_name; // Required.
     private string $mdle_name; // Optional.
     private string $last_name; // Required.
+
+    public function __construct(string $frst_name, string $last_name) {
+        $this->frst_name = $frst_name;
+        $this->last_name = $last_name;
+    }
+
+    final public function updateFirstName(string $frst_name) {
+        $this->frst_name = $frst_name;
+    }
+
+    final public function getFirstName() {
+        return $this->frst_name;
+    }
+
+    final public function setMiddleName(string $mdle_name) {
+        $this->mdle_name= $mdle_name;
+    }
+
+    final public function getMiddleName() {
+        return $this->mdle_name;
+    }
+
+    final public function updateLastName(string $last_name) {
+        $this->last_name = $last_name;
+    }
+
+    final public function getLastName() {
+        return $this->last_name;
+    }
 }
 
 // Member is a customer who gets notifications about offers instantly.
