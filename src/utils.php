@@ -1,6 +1,6 @@
 <?php
 
-enum FictionGenre {
+enum Genre {
     case Action;
     case Adventure;
     case Romance;
@@ -9,9 +9,6 @@ enum FictionGenre {
     case Mystery;
     case Thriller;
     case HistoricalFiction;
-}
-
-enum NonFictionGenre {
     case Biography;
     case Memoir;
     case SelfHelp;
