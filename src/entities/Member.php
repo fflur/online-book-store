@@ -1,7 +1,7 @@
 <?php
 
 declare(strict_types = 1);
-require(__DIR__ . 'Customer.php');
+require(__DIR__ . '/Customer.php');
 
 final class Member extends Customer {
     private bool $is_member = true;
