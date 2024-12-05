@@ -1,8 +1,9 @@
 <?php
 
-enum CustomerType {
+enum UserType {
     case Normal;
     case Member;
+    case Owner;
 }
 
 ?>

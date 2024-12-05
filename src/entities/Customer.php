@@ -2,14 +2,14 @@
 
 declare(strict_types = 1);
 require(__DIR__ . '/User.php');
-require(__DIR__ . '/CustomerType.php');
+require(__DIR__ . '/UserType.php');
 
 // Customer is anyone who wanna buy a book.
 class Customer extends User {
     private string $frst_name; // Required.
     private string $mdle_name; // Optional.
     private string $last_name; // Required.
-    private CustomerType $mber_stts = CustomerType::Normal;
+    private UserType $mber_stts = UserType::Normal;
 
     public function __construct(
         int $idfr,
@@ -59,15 +59,15 @@ class Customer extends User {
     }
 
     final public function promoteToMember() {
-        $this->mber_stts = CustomerType::Member;
+        $this->mber_stts = UserType::Member;
     }
 
-    final public function isMember() {
-        return $this->mber_stts == CustomerType.Member;
+    final public function isMember(): bool {
+        return $this->mber_stts == UserType.Member;
     }
 
     final public function demoteToCustomer() {
-        $this->mber_stts = CustomerType::Normal;
+        $this->mber_stts = UserType::Normal;
     }
 }
 
