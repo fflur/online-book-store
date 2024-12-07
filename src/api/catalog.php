@@ -7,6 +7,8 @@ header('Access-Control-Allow-Methods: GET');
 header('Content-Type: application/json');
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+    header('HTTP/1.1 200 OK');
+
     $rows = $msql_dtbs->query(
         'SELECT * FROM CUSTOMERS WHERE ID = ' .
         $_GET['idfr'] .
