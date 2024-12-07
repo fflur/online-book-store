@@ -1,11 +1,11 @@
 # Project Directory Structure
-`bin`       : This directory contains terminal executables.
-`config`    : This directory contains configurations files.
-`docs`      : This directory contains documentation files.
-`public`    : This directory contains web server files.
-`resources` : This directory contains resource files like images.
-`src`       : This directory contains PHP source files.
-`tests`     : This directory contains test codes for the project.
+- `bin`       : This directory contains terminal executables.
+- `config`    : This directory contains configurations files.
+- `docs`      : This directory contains documentation files.
+- `public`    : This directory contains web server files.
+- `resources` : This directory contains resource files like images.
+- `src`       : This directory contains PHP source files.
+- `tests`     : This directory contains test codes for the project.
 
 # Functions of the online book store
 - Maintain data associated with the inventory (a collection of books)
