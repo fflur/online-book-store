@@ -7,7 +7,7 @@ require(__DIR__ . '/../utils/UserType.php');
 // Customer is anyone who wanna buy a book.
 class Customer extends User {
     private string $frst_name; // Required.
-    private string $mdle_name; // Optional.
+    private ?string $mdle_name; // Optional.
     private string $last_name; // Required.
     private UserType $mber_stts = UserType::Normal;
 

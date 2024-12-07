@@ -8,7 +8,8 @@ header('Content-Type: application/json');
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     $rows = $msql_dtbs->query(
-        'SELECT * FROM CUSTOMERS WHERE ID = ' .
+        'SELECT PBLG_DATE, TTLE, ATHR, GNRE,'.
+        'PBLR, CVER_IMGE_UFRL, REVW_SCRE FROM BOOKS WHERE ID = ' .
         $_GET['idfr'] .
         ';'
     );
