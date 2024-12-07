@@ -27,7 +27,7 @@ class DatabaseConnectionDetails {
 
 $dtbs_cntn_dtls = new DatabaseConnectionDetails();
 
-$dtbs_cntn = new mysqli(
+$msql_dtbs = new mysqli(
     $dtbs_cntn_dtls->getDomain(),
     $dtbs_cntn_dtls->getUserName(),
     $dtbs_cntn_dtls->getPassword(),
