@@ -2,7 +2,7 @@
 
 declare(strict_types = 1);
 require(__DIR__ . '/User.php');
-require(__DIR__ . '/UserType.php');
+require(__DIR__ . '/../utils/UserType.php');
 
 // Customer is anyone who wanna buy a book.
 class Customer extends User {
