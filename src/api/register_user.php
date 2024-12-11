@@ -33,7 +33,8 @@ try {
 
     $stmt = $msql_dtbs->prepare("
         INSERT INTO CUSTOMER 
-        (USERNAME, PHONE_NUMBER, STATE, CITY, EMAIL_ADDRESS, FIRST_NAME, LAST_NAME) 
+        (USERNAME, PHONE_NUMBER, STATE, CITY,
+        EMAIL_ADDRESS, FIRST_NAME, LAST_NAME)
         VALUES (?, ?, ?, ?, ?, ?, ?)
     ");
 
