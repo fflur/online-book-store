@@ -13,9 +13,9 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
 
 try {
     $stmt = $msql_dtbs->prepare(
-        'SELECT COUNT(*) as count FROM CUSTOMERS WHERE ID = ?'
+        'SELECT COUNT(*) as count FROM CUSTOMER WHERE USERNAME = ?'
     );
-    $stmt->bind_param('i', $_GET['idfr_code']); 
+    $stmt->bind_param('s', $_GET['user_name']); 
     $stmt->execute();
     $result = $stmt->get_result();
     $row = $result->fetch_assoc();
