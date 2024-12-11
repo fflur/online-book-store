@@ -3,35 +3,19 @@
 declare(strict_types = 1);
 
 class DatabaseConnectionDetails {
-    private string $dtbs_name = 'BOOKSTORE';
-    private string $user_name = 'root';
-    private string $domn = 'localhost';
-    private string $pswd = '9051';
-
-    final public function getDatabaseName(): string {
-        return $this->dtbs_name;
-    }
-
-    final public function getUserName(): string {
-        return $this->user_name;
-    }
-
-    final public function getDomain(): string {
-        return $this->domn;
-    }
-
-    final public function getPassword(): string {
-        return $this->pswd;
-    }
+    public string $dtbs_name = 'BOOKSTORE';
+    public string $user_name = 'root';
+    public string $domn = 'localhost';
+    public string $pswd = '9051';
 }
 
 $dtbs_cntn_dtls = new DatabaseConnectionDetails();
 
 $msql_dtbs = new mysqli(
-    $dtbs_cntn_dtls->getDomain(),
-    $dtbs_cntn_dtls->getUserName(),
-    $dtbs_cntn_dtls->getPassword(),
-    $dtbs_cntn_dtls->getDatabaseName(),
+    $dtbs_cntn_dtls->domn,
+    $dtbs_cntn_dtls->user_name,
+    $dtbs_cntn_dtls->pswd,
+    $dtbs_cntn_dtls->dtbs_name,
 );
 
 ?>
