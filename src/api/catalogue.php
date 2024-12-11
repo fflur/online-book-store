@@ -15,8 +15,8 @@ try {
     $stmt = $msql_dtbs->prepare('SELECT * FROM BOOKS WHERE ID = ?');
     $stmt->bind_param('i', $_GET['idfr']); 
     $stmt->execute();
-    $result = $stmt->get_result();
-    $row = $result->fetch_assoc();
+    $rslt = $stmt->get_result();
+    $row = $rslt->fetch_assoc();
 
     http_response_code(200);
     echo json_encode($row); 
