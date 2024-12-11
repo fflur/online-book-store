@@ -4,13 +4,15 @@ require(__DIR__ . '/Connector.php');
 
 header('Access-Control-Allow-Origin: http://localhost');
 header('Access-Control-Allow-Methods: GET');
-header('Content-Type: application/json');
+header('Content-Type: application/json; charset=utf-8');
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
+    header('HTTP/1.1 200 OK');
+
     $rows = $msql_dtbs->query(
         'SELECT PBLG_DATE, TTLE, ATHR, GNRE,'.
         'PBLR, CVER_IMGE_UFRL, REVW_SCRE FROM BOOKS WHERE ID = ' .
-        $_GET['idfr'] .
+        $_GET['id'] .
         ';'
     );
 
