@@ -1,34 +1,33 @@
 <?php
 
-require(__DIR__ . '/Connector.php');
+require_once(__DIR__ . '/Connector.php');
 
 header('Access-Control-Allow-Origin: http://localhost');
 header('Access-Control-Allow-Methods: GET');
 header('Content-Type: application/json; charset=utf-8');
 
-switch ($_SERVER['REQUEST_METHOD']) {
-    case 'GET':
-        if (!isset($_GET['id'])) {
-            header("HTTP 204 'id' value not found");
-        }
-
-        else {
-            header('HTTP/1.1 200 OK');
-            $rows = $msql_dtbs->query(
-                'SELECT PBLG_DATE, TTLE, ATHR, GNRE,'.
-                'PBLR, CVER_IMGE_UFRL, REVW_SCRE FROM BOOKS WHERE ID = ' .
-                $_GET['id'] .
-                ';'
-            );
-            echo json_encode($rows->fetch_assoc());
-        }
-
-        break;
-
-    default:
-        header('HTTP/1.1 405 Method not allowed');
+if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
+    http_response_code(405); // Method Not Allowed
+    exit;
 }
 
-header_remove();
+try {
+    $stmt = $msql_dtbs->prepare(
+        'SELECT PBLG_DATE, TTLE, ATHR, GNRE, PBLR,' .
+        'CVER_IMGE_UFRL, REVW_SCRE FROM BOOKS WHERE ID = ?'
+    );
+    $stmt->bind_param('i', $_GET['id']); 
+    $stmt->execute();
+    $rslt = $stmt->get_result();
+    $row = $rslt->fetch_assoc();
+
+    http_response_code(200);
+    echo json_encode($row); 
+}
+
+catch (Exception $e) {
+    http_response_code(500); 
+    echo json_encode(['error' => $e->getMessage()]);
+}
 
 ?>
