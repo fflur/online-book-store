@@ -4,7 +4,7 @@ require(__DIR__ . '/Connector.php');
 
 header('Access-Control-Allow-Origin: http://localhost');
 header('Access-Control-Allow-Methods: GET');
-header('Content-Type: application/json');
+header('Content-Type: application/json; charset=utf-8');
 
 if ($_SERVER['REQUEST_METHOD'] == 'GET') {
     header('HTTP/1.1 200 OK');
