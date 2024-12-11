@@ -1,25 +1,28 @@
 <?php
 
-require(__DIR__ . '/Connector.php');
+require_once(__DIR__ . '/Connector.php');
 
 header('Access-Control-Allow-Origin: http://localhost');
 header('Access-Control-Allow-Methods: GET');
 header('Content-Type: application/json; charset=utf-8');
 
-if ($_SERVER['REQUEST_METHOD'] == 'GET') {
-    header('HTTP/1.1 200 OK');
-
-    $rows = $msql_dtbs->query(
-        'SELECT * FROM CUSTOMERS WHERE ID = ' .
-        $_GET['idfr'] .
-        ';'
-    );
-
-    echo json_encode($rows->fetch_assoc());
+if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
+    http_response_code(405); // Method Not Allowed
+    exit;
 }
 
-else header('HTTP/1.1 405 Method not allowed');
+try {
+    $stmt = $msql_dtbs->prepare('SELECT * FROM CUSTOMERS WHERE ID = ?');
+    $stmt->bind_param('i', $_GET['idfr']); 
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $row = $result->fetch_assoc();
 
-header_remove();
+    http_response_code(200);
+    echo json_encode($row); 
+} catch (Exception $e) {
+    http_response_code(500); 
+    echo json_encode(['error' => $e->getMessage()]);
+}
 
 ?>
