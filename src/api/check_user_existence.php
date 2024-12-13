@@ -22,7 +22,9 @@ try {
 
     http_response_code(200);
     echo json_encode(['exists' => $row['count'] > 0]); 
-} catch (Exception $e) {
+}
+
+catch (Exception $e) {
     http_response_code(500); 
     echo json_encode(['error' => $e->getMessage()]);
 }
