@@ -13,17 +13,17 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
 
 try {
     $stmt = $msql_dtbs->prepare('SELECT * FROM BOOKS WHERE ID = ?');
-    $stmt->bind_param('i', $_GET['idfr']); 
+    $stmt->bind_param('i', $_GET['idfr']);
     $stmt->execute();
     $rslt = $stmt->get_result();
     $row = $rslt->fetch_assoc();
 
     http_response_code(200);
-    echo json_encode($row); 
+    echo json_encode($row);
 }
 
 catch (Exception $e) {
-    http_response_code(500); 
+    http_response_code(500);
     echo json_encode(['error' => $e->getMessage()]);
 }
 
