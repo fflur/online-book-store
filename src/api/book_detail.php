@@ -1,6 +1,6 @@
 <?php
 
-require_once(__DIR__ . '/Connector.php');
+require_once __DIR__ . '/database_connector.php';
 
 header('Access-Control-Allow-Origin: http://localhost');
 header('Access-Control-Allow-Methods: GET');
