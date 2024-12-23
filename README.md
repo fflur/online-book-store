@@ -7,115 +7,48 @@
 - `src`       : This directory contains PHP source files.
 - `tests`     : This directory contains test codes for the project.
 
-# Functions of the online book store
-- Maintain data associated with the inventory (a collection of books)
-  - A book has a title, author and price
-  - The inventory also keep track of the stock/quantity of each book
-- Maintain records for many customers
-  - A customer can be either a member or non-member
-  - A customer has a username (unique across all users), password, email,
-  address, and postal address (unverified.
-  - Anyone may sign up for a customer account
-- Allow any customer to become a member.
-- Show a listing of available books
-  - Books are to be displayed in ascending alphabetical order by title.
-  - Each book will list the following from left to right.
-    - Title
-    - Author
-    - Price
-- Allow customers and managers to log in and out of the system.
-  - Users (both customers and the manager) will be logged out if inactive for 30
-  minutes.
-- Shopping cart.
-  - Anyone is able to add one or more books to the shopping cart.
-  - The shopping cart does not need to allow multiple copies of any book.
-- Checkout
-  - Checkout is only available to logged-in customers. A user that is not logged
-  in as a customer is given a chance to log in.
-  - Member customers may enter a promotion code.
-  - Only one promotion code may be used per purchase. 
-  - The promotion is a fixed percentage discount that is to be applied to an
-  entire order.
-  - The discount is specified by the manager at the time of the promotion’s
-  creation or most recent update/edit.
-  - Collect a 16-digit credit card number from the customer.
-  - Log/record the transaction.
-- Allow manager to specify a stop-order for a book.
-  - Each book has its own stop-order status – either on or off. Details of its
-  use are involved in the following feature
-- Notify manager when books need to be reordered.
-  - When the quantity a book falls below a threshold, the manager is notified
-  that the book needs to be reordered.
-  - One exception is if the manager has already specified a stop-order for this
-  book.
-    - Every book must either have stop-order enabled or disabled.
-- Allow manager to update stock quantities.
-  - Allow manager to change any book's price.
-  - Allow manager to view transaction logs.
-  - Allow manager to create promotions.
-    - A promotion is a percentage discount that can be applied to an entire
-    order.
-  - Promotions may only be used by member customers.
-  - A promotion has an expiration date specified by the manager.
-  - When a promotion is created, it is emailed to all member customers via the
-  email address on record.
+# Inspiration
+To develop an online book store we first need to consider a regular offline book
+store. We got to a book store, we notice that the books are laid out in sections
+or categories. As an example of sections we can have science fiction, fantasy,
+autobiography et cetera. After that we choose a book. Then if we are buying
+multiple books we drop each of them in a cart. Or if we just ought to buy single
+book then we go to the cashier or sales associate. We make the deal and leave
+the store.
 
-# Functionalities for book sellers
+Considering the above standard process we get some key functionalities of a book
+store. These are:
+- Books should be organized in categories or sections.
+- When we are interested in a book, we pick it up to check its details.
+- In case we aren't planning to buy imperatively, we add it to our wishlist.
+- We add the book to a cart or bag in case we are buying multiple books.
+- We directly go to the cashier or sales associate in case we are buying just a
+  single book.
+- Then we pay for the book and in return we get to own it.
+- Either we can leave the store or search for some other books.
 
-An online bookstore should provide a robust back end system to manage inventory,
-orders, and customer interactions efficiently. Here are some key functionalities
-from a bookseller's perspective:
+# Key Functionalities of Online Book Store
+- Categorization of books.
+- Book's detail viewer.
+- Adding to shopping bag or cart.
+- Payment process.
+- Back to browsing.
+- Customer login.
+- Customer logout.
+- Customer registration.
+- Book search feature.
 
-- **Inventory Management:**
-- **Product Catalog:**
-    - Add, edit, and delete book details (title, author, ISBN, publisher, genre,
-    price, description, etc.)
-    - Upload high-quality images of book covers.
-    - Organize books into categories and subcategories.
-    - Set inventory levels and track stock.
-- **Supplier Management:**
-    - Maintain a list of suppliers and their contact information.
-    - Place purchase orders directly to suppliers.
-    - Track order status and delivery dates.
-- **Pricing and Discounts:**
-    - Set pricing strategies, including discounts and promotions.
-    - Implement dynamic pricing based on factors like demand and competition.
-    - Manage coupon codes and special offers.
+The above functionalities are from the customers point of view.
 
-- **Order Management:**
-  - **Order Processing:**
-      - Receive and process orders automatically.
-      - Generate packing slips and shipping labels.
-      - Integrate with shipping carriers to calculate shipping costs and track
-      shipments.
-  - **Order Fulfillment:**
-      - Manage inventory to ensure timely order fulfillment.
-      - Coordinate with warehouse or fulfillment centers for efficient order
-      picking and packing.
-  - **Returns and Refunds:**
-      - Process returns and issue refunds.
-      - Handle customer inquiries and complaints related to orders.
+# Book Supply
+Th supply of books can be done by a distributor, publisher or a wholesaler. The
+books which are going to arrive need to be added to the store. This is done
+manually by a manager or owner. So, we need someone to add those books to the
+store manually. This can achieved by implementing an interface for Book Manager
+or someone in charge of doing so.
 
-- **Customer Management:**
-  - **Customer Profiles:**
-      - Create and manage customer profiles, including address, contact
-      information, and order history.
-      - Segment customers based on purchase behavior and preferences.
-  - **Customer Support:**
-      - Provide efficient customer support through various channels (email, phone,
-      chat).
-      - Handle inquiries, resolve issues, and provide assistance.
-  - **Loyalty Programs:**
-      - Implement loyalty programs to reward repeat customers.
-      - Track customer points and offer exclusive benefits.
-
-- **Financial Management:**
-  - **Sales Reports:**
-      - Generate detailed sales reports to analyze performance.
-      - Track revenue, expenses, and profit margins.
-  - **Payment Processing:**
-      - Integrate with payment gateways to process online payments securely.
-      - Handle refunds and chargebacks.
-  - **Tax Calculations:**
-      - Calculate and collect sales tax based on customer location and applicable
-      tax rates.
+# Key Functionalities include:
+- Addition of book along with details.
+- Updating the details of the books.
+- Removal of book from the store.
+- Viewing the detail of the book.
