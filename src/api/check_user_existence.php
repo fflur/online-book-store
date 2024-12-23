@@ -21,7 +21,7 @@ try {
     $row = $result->fetch_assoc();
 
     http_response_code(200);
-    echo json_encode(['exists' => $row['count'] > 0]); 
+    echo json_encode(['exists' => $row['count'] > 0]);
 }
 
 catch (Exception $e) {
