@@ -1,13 +1,18 @@
 <?php
 
-declare(strict_types = 1);
-
 class Entity {
-    public $idfr_code; // Identifier code.
-    public string $desc = ""; // Description.
+    private ?string $desc;
 
-    public function __construct(int $idfr_code) {
-        $this->idfr_code = $idfr_code;
+    public function __construct(?string $desc = null) {
+        $this->desc = $desc;
+    }
+
+    public function GetDescription(): ?string {
+        return $this->desc;
+    }
+
+    public function SetDescription(?string $desc): void {
+        $this->desc = $desc;
     }
 }
 

@@ -1,48 +1,69 @@
 <?php
 
 declare(strict_types = 1);
-require(__DIR__ . '/User.php');
-require(__DIR__ . '/../utils/UserType.php');
+require_once __DIR__ . '/User.php';
+require_once __DIR__ . '/../utils/UserType.php';
 
-// Customer is anyone who wanna buy a book.
 class Customer extends User {
-    public string $frst_name; // Required.
-    public ?string $mdle_name; // Optional.
-    public string $last_name; // Required.
+    private string $frst_name;
+    private ?string $mdle_name;
+    private string $last_name;
     private UserType $mber_stts = UserType::Normal;
 
     public function __construct(
-        string $phne_nmbr,
-        string $stte,
-        string $city,
-        string $user_name,
-        string $mail_addr,
         string $frst_name,
         string $last_name,
+        string $user_name,
+        string $mail_addr,
+        ?string $phne_nmbr = null,
+        ?string $stte = null,
+        ?string $city = null,
+        ?string $desc = null,
+        ?string $mdle_name = null
     ) {
         parent::__construct(
-            -1,
+            $user_name,
+            $mail_addr,
             $phne_nmbr,
             $stte,
             $city,
-            $user_name,
-            $mail_addr,
+            $desc
         );
-
         $this->frst_name = $frst_name;
+        $this->mdle_name = $mdle_name;
         $this->last_name = $last_name;
     }
 
-    final public function promoteToMember() {
-        $this->mber_stts = UserType::Member;
+    public function GetFirstName(): string {
+        return $this->frst_name;
     }
 
-    final public function isMember(): bool {
-        return $this->mber_stts == UserType.Member;
+    public function SetFirstName(string $frst_name): void {
+        $this->frst_name = $frst_name;
     }
 
-    final public function demoteToCustomer() {
-        $this->mber_stts = UserType::Normal;
+    public function GetMiddleName(): ?string {
+        return $this->mdle_name;
+    }
+
+    public function SetMiddleName(?string $mdle_name): void {
+        $this->mdle_name = $mdle_name;
+    }
+
+    public function GetLastName(): string {
+        return $this->last_name;
+    }
+
+    public function SetLastName(string $last_name): void {
+        $this->last_name = $last_name;
+    }
+
+    public function GetMemberStatus(): UserType {
+        return $this->mber_stts;
+    }
+
+    public function SetMemberStatus(UserType $mber_stts): void {
+        $this->mber_stts = $mber_stts;
     }
 }
 
