@@ -7,48 +7,65 @@
 - `src`       : This directory contains PHP source files.
 - `tests`     : This directory contains test codes for the project.
 
-# Inspiration
-To develop an online book store we first need to consider a regular offline book
-store. We got to a book store, we notice that the books are laid out in sections
-or categories. As an example of sections we can have science fiction, fantasy,
-autobiography et cetera. After that we choose a book. Then if we are buying
-multiple books we drop each of them in a cart. Or if we just ought to buy single
-book then we go to the cashier or sales associate. We make the deal and leave
-the store.
+# Unveiling the Inspiration
+Imagine a haven for bibliophiles, a meticulously curated space where stories
+await discovery. This is the essence of our online bookstore, inspired by the
+traditional bookstore experience.
 
-Considering the above standard process we get some key functionalities of a book
-store. These are:
-- Books should be organized in categories or sections.
-- When we are interested in a book, we pick it up to check its details.
-- In case we aren't planning to buy imperatively, we add it to our wishlist.
-- We add the book to a cart or bag in case we are buying multiple books.
-- We directly go to the cashier or sales associate in case we are buying just a
-  single book.
-- Then we pay for the book and in return we get to own it.
-- Either we can leave the store or search for some other books.
+We emulate the familiar — books meticulously organized by genre, enticing you to
+browse and delve into captivating narratives. Just as effortlessly, you can
+select a book to examine its details, much like picking it up in a physical
+store.
 
-# Key Functionalities of Online Book Store
-- Categorization of books.
-- Book's detail viewer.
-- Adding to shopping bag or cart.
-- Payment process.
-- Back to browsing.
-- Customer login.
-- Customer logout.
-- Customer registration.
-- Book search feature.
+For those literary treasures you don't wish to commit to immediately, a
+wishlist awaits, ensuring they don't slip from your grasp. And for those moments
+when you discover a trove of captivating reads, a virtual shopping bag stands
+ready to collect them.
 
-The above functionalities are from the customers point of view.
+The checkout process mirrors the ease of a real-world transaction, allowing you
+to seamlessly secure your newfound literary companions. But the journey doesn't
+end there — you can return to explore further or bask in the satisfaction of
+your curated collection.
 
-# Book Supply
-Th supply of books can be done by a distributor, publisher or a wholesaler. The
-books which are going to arrive need to be added to the store. This is done
-manually by a manager or owner. So, we need someone to add those books to the
-store manually. This can achieved by implementing an interface for Book Manager
-or someone in charge of doing so.
+# Cornerstones of the Customer Experience
+* **Intuitive Categorization:** Effortlessly navigate a world of genres, akin to
+browsing designated sections in a store.
+* **In-Depth Book Exploration:** Delve into the details of each book, just as
+you would examine a physical copy.
+* **Wishlist for Later:** Compile a collection of desired reads for future
+exploration.
+* **Streamlined Shopping Cart:** Effortlessly gather your chosen books for a
+seamless checkout process.
+* **Frictionless Checkout:** Secure your literary treasures with a simple and
+efficient purchase process.
+* **Uninterrupted Browsing:** Return to explore more titles or relish the fruits
+of your browsing endeavors.
 
-# Key Functionalities include:
-- Addition of book along with details.
-- Updating the details of the books.
-- Removal of book from the store.
-- Viewing the detail of the book.
+# Empowering Customers
+* **Seamless Login:** Establish a personalized account to streamline future
+visits.
+* **Effortless Logout:** Conclude your shopping excursion with ease.
+* **Simplified Registration:** Become a part of our bookish community with a
+straightforward registration process.
+* **Powerful Search Functionality:** Effortlessly find the specific titles that
+pique your interest.
+
+These functionalities prioritize the customer experience, ensuring an intuitive
+and enriching exploration of our literary haven.
+
+# Behind the Scenes: Book Supply
+The very lifeblood of our store—the books themselves—arrive courtesy of
+distributors, publishers, or wholesalers. To ensure our shelves remain stocked,
+a designated manager or owner meticulously curates the selection. This process
+is facilitated by a user-friendly interface, empowering them to effortlessly
+add, update, or remove books from our virtual collection.
+
+* **Effortless Book Addition:** Introduce new titles to the store, complete with
+detailed descriptions.
+* **Seamless Book Updates:** Maintain the accuracy of book information with
+effortless updates.
+* **Inventory Management:** Remove books from the store when necessary.
+* **Book Inquiry:** Gain insights into the details of any book within the store.
+
+This system empowers those responsible for maintaining our collection, ensuring a
+rich and ever-evolving selection for our customers.
