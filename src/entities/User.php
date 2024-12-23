@@ -9,6 +9,8 @@ class User extends Entity {
     private ?string $phne_nmbr;
     private ?string $stte;
     private ?string $city;
+    private ?string $strt; // Street or road number.
+    private ?string $home_nmbr; // House or building number.
 
     public function __construct(
         string $user_name,
@@ -16,6 +18,8 @@ class User extends Entity {
         ?string $phne_nmbr = null,
         ?string $stte = null,
         ?string $city = null,
+        ?string $strt = null,
+        ?string $home_nmbr = null,
         ?string $desc = null
     ) {
         parent::__construct($desc);
@@ -24,6 +28,8 @@ class User extends Entity {
         $this->phne_nmbr = $phne_nmbr;
         $this->stte = $stte;
         $this->city = $city;
+        $this->strt = $strt;
+        $this->home_nmbr = $home_nmbr;
     }
 
     public function GetUsername(): string {
@@ -64,6 +70,22 @@ class User extends Entity {
 
     public function SetCity(?string $city): void {
         $this->city = $city;
+    }
+
+    public function GetStreet(): ?string {
+        return $this->strt;
+    }
+
+    public function SetStreet(?string $strt): void {
+        $this->strt = $strt;
+    }
+
+    public function GetHomeNumber(): ?string {
+        return $this->home_nmbr;
+    }
+
+    public function SetHomeNumber(?string $home_nmbr): void {
+        $this->home_nmbr = $home_nmbr;
     }
 }
 
