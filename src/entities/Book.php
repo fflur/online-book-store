@@ -4,7 +4,8 @@ declare(strict_types = 1);
 require_once __DIR__ . '/Entity.php';
 
 class Book extends Entity {
-    private DateTime $pblg_date;
+    private int $edtn;
+    private int $pblg_year;
     private int $prce;
     private int $qnty;
     private int $revw_scre;
@@ -16,7 +17,8 @@ class Book extends Entity {
     private ?string $cver_imge_ufrl;
 
     public function __construct(
-        DateTime $pblg_date,
+        int $edtn,
+        int $pblg_year,
         int $prce,
         string $ttle,
         string $pblr,
@@ -29,7 +31,8 @@ class Book extends Entity {
         ?string $desc = null
     ) {
         parent::__construct($desc);
-        $this->pblg_date = $pblg_date;
+        $this->edtn = $edtn;
+        $this->pblg_year = $pblg_year;
         $this->prce = $prce;
         $this->qnty = $qnty;
         $this->revw_scre = $revw_scre;
@@ -41,12 +44,20 @@ class Book extends Entity {
         $this->cver_imge_ufrl = $cver_imge_ufrl;
     }
 
-    public function GetPublishingDate(): DateTime {
-        return $this->pblg_date;
+    public function GetEdition(): int {
+        return $this->edtn;
     }
 
-    public function SetPublishingDate(DateTime $pblg_date): void {
-        $this->pblg_date = $pblg_date;
+    public function SetEdition(int $edtn): void {
+        $this->edtn = $edtn;
+    }
+
+    public function GetPblgYear(): int {
+        return $this->pblg_year;
+    }
+
+    public function SetPblgYear(int $pblg_year): void {
+        $this->pblg_year = $pblg_year;
     }
 
     public function GetPrice(): int {
