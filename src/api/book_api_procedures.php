@@ -101,7 +101,7 @@ function GetBooksByFilter(mysqli $msql_dtbs, array $filters): void {
         }
         $whre_clses[] = "$filter = ?";
         $params[] = $value;
-        $types .= "s"; // Assuming all values are strings for now. Adjust if needed.
+        $types .= "s"; // Assuming all values are strings for now.
     }
 
     $whre_clse = implode(" AND ", $whre_clses);
