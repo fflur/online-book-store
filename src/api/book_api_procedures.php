@@ -139,4 +139,47 @@ function GetBooksByFilter(mysqli $msql_dtbs, array $filters): void {
     echo json_encode($books);
 }
 
+function GetBooksByGenre(mysqli $msql_dtbs, array $genres): void {
+    if (empty($genres)) {
+        http_response_code(400);
+        echo json_encode(['error' => 'No genres provided.']);
+        return;
+    }
+
+    foreach ($genres as $genre) {
+        if (!BookType::IsCategory($genre)) {
+            http_response_code(400);
+            echo json_encode(['error' => "Invalid genre: " . $genre]);
+            return;
+        }
+    }
+
+    $placeholders = implode(',', array_fill(0, count($genres), '?'));
+    $query = "SELECT * FROM BOOKS WHERE GNRE IN ($placeholders)";
+
+    $stmt = $msql_dtbs->prepare($query);
+
+    if ($stmt === false) {
+        http_response_code(500);
+        echo json_encode(['error' => 'Database query preparation failed: ' . $msql_dtbs->error]);
+        return;
+    }
+
+    $types = str_repeat("s", count($genres)); // All strings
+    $stmt->bind_param($types, ...$genres);
+
+    if (!$stmt->execute()) {
+        http_response_code(500);
+        echo json_encode(['error' => 'Database query execution failed: ' . $stmt->error]);
+        $stmt->close();
+        return;
+    }
+
+    $result = $stmt->get_result();
+    $books = $result->fetch_all(MYSQLI_ASSOC);
+    $stmt->close();
+
+    echo json_encode($books);
+}
+
 ?>
