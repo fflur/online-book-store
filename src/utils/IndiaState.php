@@ -36,21 +36,21 @@ class IndiaState {
         return [];
     }
 
-    public function GetNmbrOfDistrictsFor(string $stateName): int {
-        $districts = $this->GetDistrictsFor($stateName);
+    public function GetNmbrOfDistrictsFor(string $stte_name): int {
+        $districts = $this->GetDistrictsFor($stte_name);
         return count($districts);
     }
 
-    public function IsState(string $stateName): bool {
-        foreach ($this->list_of_stte as $stateData)
-            if ($stateData['state'] === $stateName) return true;
+    public function IsState(string $stte_name): bool {
+        foreach ($this->list_of_stte as $stte_data)
+            if ($stte_data['state'] === $stte_name) return true;
         return false;
     }
 
     public function GetAllStates(): array {
         $states = [];
-        foreach ($this->list_of_stte as $stateData)
-            $states[] = $stateData['state'];
+        foreach ($this->list_of_stte as $stte_data)
+            $states[] = $stte_data['state'];
         return $states;
     }
 }
