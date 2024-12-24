@@ -87,7 +87,7 @@ function GetBooksByFilter(mysqli $msql_dtbs, array $filters): void {
         return;
     }
 
-    $whre_clses = [];
+    $whre_clses = []; // Where clauses.
     $params = [];
     $types = "";
 
