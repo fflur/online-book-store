@@ -35,6 +35,29 @@ class IndiaState {
 
         return [];
     }
+
+    public function GetNmbrOfDistrictsFor(string $stateName): int {
+        $districts = $this->GetDistrictsFor($stateName);
+        return count($districts);
+    }
+
+    public function IsState(string $stateName): bool {
+        foreach ($this->list_of_stte as $stateData)
+            if ($stateData['state'] === $stateName) return true;
+        return false;
+    }
+
+    public function GetAllStates(): array {
+        $states = [];
+        foreach ($this->list_of_stte as $stateData)
+            $states[] = $stateData['state'];
+        return $states;
+    }
 }
+
+$india_state = new IndiaState(__DIR__ . '/../../resources/states_in_india.json');
+var_dump($india_state->GetNmbrOfDistrictsFor('Uttar Pradesh'));
+var_dump($india_state->IsState('Uttar Pradesh'));
+var_dump($india_state->GetAllStates());
 
 ?>
