@@ -48,6 +48,12 @@ enum BookType {
             ],
         ];
     }
+
+    public static function IsCategory(string $category): bool {
+        foreach (self::cases() as $case)
+            if ($case->name === $category) return true;
+        return false;
+    }
 }
 
 ?>
