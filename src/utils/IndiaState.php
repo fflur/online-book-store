@@ -8,7 +8,8 @@ class IndiaState {
     public function __construct(string $json_file_path) {
         $json = @file_get_contents($json_file_path);
 
-        if ($json === false) throw new InvalidArgumentException(
+        if ($json === false)
+            throw new InvalidArgumentException(
                 "Failed to load JSON file: " .
                 $json_file_path
             );
