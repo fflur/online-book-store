@@ -54,6 +54,17 @@ switch ($path_prts[3]) {
         }
         break;
 
+    case 'genre': // New case for genre filtering
+        if(!empty($_GET['gnre'])) { //Check if genre is provided in query parameter
+            $genres = is_array($_GET['gnre']) ? $_GET['gnre'] : [$_GET['gnre']];
+            GetBooksByGenre($msql_dtbs, $genres);
+        } else {
+            http_response_code(400);
+            echo json_encode(['error' => 'No genre provided.']);
+            exit;
+        }
+        break;
+
     default:
         if (is_numeric($path_prts[0]))
             GetBooksById($msql_dtbs, (int)$path_prts[0]);
