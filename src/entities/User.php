@@ -8,7 +8,7 @@ class User extends Entity {
     private string $mail_addr;
     private ?string $phne_nmbr;
     private ?string $stte;
-    private ?string $city;
+    private ?string $dsrt; // District.
     private ?string $strt; // Street or road number.
     private ?string $home_nmbr; // House or building number.
 
@@ -17,7 +17,7 @@ class User extends Entity {
         string $mail_addr,
         ?string $phne_nmbr = null,
         ?string $stte = null,
-        ?string $city = null,
+        ?string $dsrt = null,
         ?string $strt = null,
         ?string $home_nmbr = null,
         ?string $desc = null
@@ -27,7 +27,7 @@ class User extends Entity {
         $this->mail_addr = $mail_addr;
         $this->phne_nmbr = $phne_nmbr;
         $this->stte = $stte;
-        $this->city = $city;
+        $this->dsrt = $dsrt;
         $this->strt = $strt;
         $this->home_nmbr = $home_nmbr;
     }
@@ -64,12 +64,12 @@ class User extends Entity {
         $this->stte = $stte;
     }
 
-    public function GetCity(): ?string {
-        return $this->city;
+    public function GetDistrict(): ?string {
+        return $this->dsrt;
     }
 
-    public function SetCity(?string $city): void {
-        $this->city = $city;
+    public function SetDistrict(?string $dsrt): void {
+        $this->dsrt = $dsrt;
     }
 
     public function GetStreet(): ?string {
