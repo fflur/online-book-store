@@ -55,9 +55,4 @@ class IndiaState {
     }
 }
 
-$india_state = new IndiaState(__DIR__ . '/../../resources/states_in_india.json');
-var_dump($india_state->GetNmbrOfDistrictsFor('Uttar Pradesh'));
-var_dump($india_state->IsState('Uttar Pradesh'));
-var_dump($india_state->GetAllStates());
-
 ?>
