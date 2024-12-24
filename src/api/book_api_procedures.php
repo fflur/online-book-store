@@ -87,33 +87,39 @@ function GetBooksByFilter(mysqli $msql_dtbs, array $filters): void {
         return;
     }
 
-    $whre_clses = []; // Where clauses.
+    $allowed_filters = ['athr', 'gnre', 'pblr', 'lnge'];
+    $where_clauses = [];
     $params = [];
     $types = "";
 
     foreach ($filters as $filter => $value) {
-        if ($filter === 'category') {
+        if (!in_array($filter, $allowed_filters)) {
+            http_response_code(400);
+            echo json_encode(['error' => "Invalid filter: " . $filter]);
+            return;
+        }
+
+        if ($filter === 'gnre') {
             if (!BookType::IsCategory($value)) {
                 http_response_code(400);
-                echo json_encode(['error' => "Invalid category: " . $value]);
+                echo json_encode(['error' => "Invalid genre: " . $value]);
                 return;
             }
         }
-        $whre_clses[] = "$filter = ?";
+
+        $where_clauses[] = "$filter = ?"; // Use = for single values
         $params[] = $value;
-        $types .= "s"; // Assuming all values are strings for now.
+        $types .= "s"; // Assuming all values are strings. Adjust if needed.
     }
 
-    $whre_clse = implode(" AND ", $whre_clses);
-    $query = "SELECT * FROM books WHERE $whre_clse";
+    $where_clause = implode(" OR ", $where_clauses); // Use OR instead of AND
+    $query = "SELECT * FROM books WHERE $where_clause";
 
     $stmt = $msql_dtbs->prepare($query);
 
     if ($stmt === false) {
         http_response_code(500);
-        echo json_encode([
-            'error' => 'Database query preparation failed: ' . $msql_dtbs->error
-        ]);
+        echo json_encode(['error' => 'Database query preparation failed: ' . $msql_dtbs->error]);
         return;
     }
 
@@ -121,9 +127,7 @@ function GetBooksByFilter(mysqli $msql_dtbs, array $filters): void {
 
     if (!$stmt->execute()) {
         http_response_code(500);
-        echo json_encode([
-            'error' => 'Database query execution failed: ' . $stmt->error
-        ]);
+        echo json_encode(['error' => 'Database query execution failed: ' . $stmt->error]);
         $stmt->close();
         return;
     }
