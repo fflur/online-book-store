@@ -1,10 +1,10 @@
 RewriteEngine On
-RewriteBase /
+RewriteBase /src/
 
-# Redirect requests to /books to /books/ to avoid relative path issues
-RewriteCond %{REQUEST_URI} ^/books$
+# Redirect requests to /src/api/book to /src/api/book/
+RewriteCond %{REQUEST_URI} ^/src/api/book$
 RewriteRule ^(.*)$ $1/ [R=301,L]
 
-# Rewrite requests starting with /books/ to books.php
-RewriteCond %{REQUEST_URI} ^/books(/.*)?$
-RewriteRule ^books/(.*)$ books.php/$1 [QSA,L]
+# Rewrite requests starting with /src/api/book/ to book.php
+RewriteCond %{REQUEST_URI} ^/src/api/book(/.*)?$
+RewriteRule ^src/api/book/(.*)$ api/book.php/$1 [QSA,L]
