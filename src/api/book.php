@@ -56,7 +56,9 @@ switch ($path_prts[3]) {
 
     case 'genre': // New case for genre filtering
         if(!empty($_GET[$gnre_cgry])) { //Check if genre is provided in query parameter
-            $genres = is_array($_GET[$gnre_cgry]) ? $_GET[$gnre_cgry] : [$_GET[$gnre_cgry]];
+            $genres = is_array(
+                $_GET[$gnre_cgry]
+            ) ? $_GET[$gnre_cgry] : [$_GET[$gnre_cgry]];
             GetBooksByGenre($msql_dtbs, $genres);
         } else {
             http_response_code(400);
