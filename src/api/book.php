@@ -38,7 +38,7 @@ if (empty($path_prts[0])) {
     exit;
 }
 
-//If the queryString is not empty then parse it
+//If the qery_strg is not empty then parse it
 if(!empty($qery_strg)) {
     parse_str($qery_strg, $_GET);
 }
