@@ -4,7 +4,7 @@ declare(strict_types = 1);
 
 function IsCustomer(mysqli $msql_dtbs, string $username, string $email): bool {
     $stmt = $msql_dtbs->prepare(
-        'SELECT ID FROM CUSTOMERS WHERE USERNAME = ? OR EMAIL = ?'
+        'SELECT EMAIL_ADDRESS FROM CUSTOMERS WHERE USER_NAME = ? OR EMAIL_ADDRESS = ?'
     );
 
     if ($stmt === false) {
@@ -28,29 +28,40 @@ function IsCustomer(mysqli $msql_dtbs, string $username, string $email): bool {
 }
 
 function RegisterCustomer(mysqli $msql_dtbs, Customer $customer): bool {
-    $stmt = $msql_dtbs->prepare("
+    $stmt = $msql_dtbs->prepare('
         INSERT INTO CUSTOMERS
-        (FIRST_NAME, MIDDLE_NAME, LAST_NAME, USERNAME,
-        EMAIL, PHONE_NUMBER, STATE, DISTRICT, STREET, HOME_NUMBER)
+        (FIRST_NAME, MIDDLE_NAME, LAST_NAME, USER_NAME,
+        EMAIL_ADDRESS, PHONE_NUMBER, STATE, DISTRICT, STREET, HOME_NUMBER)
         VALUES (?, ?, ?, ?, ?, ?, ?, ?, ?, ?)
-    ");
+    ');
 
     if ($stmt === false) {
         error_log("Database query preparation failed: " . $msql_dtbs->error);
         return false;
     }
 
-    $stmt->bind_param("ssssssssss",
-        $customer->frst_name,
-        $customer->mdle_name,
-        $customer->last_name,
-        $customer->user_name,
-        $customer->mail_addr,
-        $customer->phne_nmbr,
-        $customer->stte,
-        $customer->dsrt,
-        $customer->strt,
-        $customer->home_nmbr
+    $frst_name = $customer->GetFirstName();
+    $last_name = $customer->GetLastName();
+    $user_name = $customer->GetUserName();
+    $mail_addr = $customer->GetMailAddr();
+    $mdle_name = $customer->GetMiddleName();
+    $phne_nmbr = $customer->GetPhoneNumber();
+    $stte = $customer->GetState();
+    $dsrt = $customer->GetDistrict();
+    $strt = $customer->GetStreet();
+    $home_nmbr = $customer->GetHomeNumber();
+
+    $stmt->bind_param('ssssssssss',
+        $frst_name,
+        $mdle_name,
+        $last_name,
+        $user_name,
+        $mail_addr,
+        $phne_nmbr,
+        $stte,
+        $dsrt,
+        $strt,
+        $home_nmbr,
     );
 
     if (!$stmt->execute()) {

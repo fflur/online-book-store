@@ -6,20 +6,20 @@ require_once __DIR__ . '/Entity.php';
 class User extends Entity {
     private string $user_name;
     private string $mail_addr;
-    private ?string $phne_nmbr;
-    private ?string $stte;
-    private ?string $dsrt; // District.
-    private ?string $strt; // Street or road number.
-    private ?string $home_nmbr; // House or building number.
+    private string $phne_nmbr;
+    private string $stte;
+    private string $dsrt; // District.
+    private string $strt; // Street or road number.
+    private string $home_nmbr; // House or building number.
 
     public function __construct(
         string $user_name,
         string $mail_addr,
-        ?string $phne_nmbr = null,
-        ?string $stte = null,
-        ?string $dsrt = null,
-        ?string $strt = null,
-        ?string $home_nmbr = null,
+        string $phne_nmbr,
+        string $stte,
+        string $dsrt,
+        string $strt,
+        string $home_nmbr,
         ?string $desc = null
     ) {
         parent::__construct($desc);

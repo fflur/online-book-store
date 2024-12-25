@@ -2,8 +2,9 @@
 
 declare(strict_types = 1);
 
-require_once __DIR__ . '/database_connector.php';
-require_once __DIR__ . '/customer/customer_procedures.php';
+require_once __DIR__ . '/../database_connector.php';
+require_once __DIR__ . '/customer_procedures.php';
+require_once __DIR__ . '/../../entities/Customer.php';
 
 header('Content-Type: application/json');
 header('Access-Control-Allow-Origin: *');
@@ -36,15 +37,15 @@ if ($data === null) {
 }
 
 // Check if username and email are provided
-if (!isset($data['username']) || !isset($data['email'])) {
+if (!isset($data['user_name']) || !isset($data['mail_addr'])) {
     http_response_code(400);
     echo json_encode(['error' => 'Username and email are required.']);
     $msql_dtbs->close();
     exit;
 }
 
-$username = $data['username'];
-$email = $data['email'];
+$username = $data['user_name'];
+$email = $data['mail_addr'];
 
 if (IsCustomer($msql_dtbs, $username, $email)) {
     http_response_code(409); // Conflict (resource already exists)
@@ -79,15 +80,15 @@ foreach ($required_fields as $field) {
 // Create Customer object
 $customer = new Customer(
     $data['frst_name'],
+    $data['mdle_name'] ?? null,
     $data['last_name'],
     $data['user_name'],
     $data['mail_addr'],
-    $data['mdle_name'] ?? null,
-    $data['phne_nmbr'] ?? null,
-    $data['stte'] ?? null,
-    $data['dsrt'] ?? null,
-    $data['strt'] ?? null,
-    $data['home_nmbr'] ?? null,
+    $data['phne_nmbr'],
+    $data['stte'],
+    $data['dsrt'],
+    $data['strt'],
+    $data['home_nmbr'],
     $data['desc'] ?? null
 );
 

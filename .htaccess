@@ -15,7 +15,7 @@ RewriteRule ^src/api/customer$ api/customer.php [L]
 
 # register.php routing
 RewriteCond %{REQUEST_URI} ^/src/api/customer/register$
-RewriteRule ^src/api/customer/register$ api/register.php [L]
+RewriteRule ^src/api/customer/register$ api/customer/register.php [L]
 
 # login.php routing
 RewriteCond %{REQUEST_URI} ^/src/api/customer/login$

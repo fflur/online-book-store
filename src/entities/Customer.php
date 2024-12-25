@@ -16,11 +16,11 @@ class Customer extends User {
         string $last_name,
         string $user_name,
         string $mail_addr,
-        ?string $phne_nmbr = null,
-        ?string $stte = null,
-        ?string $dsrt = null,
-        ?string $strt = null,
-        ?string $home_nmbr = null,
+        string $phne_nmbr,
+        string $stte,
+        string $dsrt,
+        string $strt,
+        string $home_nmbr,
         ?string $desc = null,
     ) {
         parent::__construct(
@@ -29,8 +29,8 @@ class Customer extends User {
             $phne_nmbr,
             $stte,
             $dsrt,
-            $strt = null,
-            $home_nmbr = null,
+            $strt,
+            $home_nmbr,
             $desc
         );
         $this->frst_name = $frst_name;
