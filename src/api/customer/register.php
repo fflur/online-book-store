@@ -1,5 +1,7 @@
 <?php
 
+declare(strict_types = 1);
+
 header('Content-Type: application/json; charset=utf-8');
 header('Access-Control-Allow-Origin: *');
 header('Access-Control-Allow-Methods: POST, OPTIONS');
@@ -19,7 +21,6 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-declare(strict_types = 1);
 require_once __DIR__ . '/../database_connector.php';
 require_once __DIR__ . '/customer_procedures.php';
 require_once __DIR__ . '/../../entities/Customer.php';
@@ -46,7 +47,7 @@ if (!isset($data['user_name']) || !isset($data['mail_addr'])) {
 $username = $data['user_name'];
 $email = $data['mail_addr'];
 
-if (IsCustomer($msql_dtbs, $username, $email)) {
+if (IsMailAddress($msql_dtbs, $email) || IsUsername($msql_dtbs, $email)) {
     http_response_code(409); // Conflict (resource already exists)
     echo json_encode(['error' => 'Username or email already exists.']);
     $msql_dtbs->close();
