@@ -23,3 +23,6 @@ multiple values for the 'gnre' variable.
 When sending GET request with just a number, it returns the details of that
 particular book as it is treated as book's identifier. If no parameter is
 provided it return a 400 response.
+
+The 'filter' and 'genre' query also accept an optional limit and offset values.
+This is for pagination purpose. By default these are 10 and 0 respectively.
