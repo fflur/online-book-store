@@ -12,21 +12,25 @@ class Customer extends User {
 
     public function __construct(
         string $frst_name,
+        ?string $mdle_name = null,
         string $last_name,
         string $user_name,
         string $mail_addr,
         ?string $phne_nmbr = null,
         ?string $stte = null,
-        ?string $city = null,
+        ?string $dsrt = null,
+        ?string $strt = null,
+        ?string $home_nmbr = null,
         ?string $desc = null,
-        ?string $mdle_name = null
     ) {
         parent::__construct(
             $user_name,
             $mail_addr,
             $phne_nmbr,
             $stte,
-            $city,
+            $dsrt,
+            $strt = null,
+            $home_nmbr = null,
             $desc
         );
         $this->frst_name = $frst_name;
