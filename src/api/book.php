@@ -39,9 +39,9 @@ if (empty($path_prts[0])) {
 }
 
 //If the qery_strg is not empty then parse it
-if(!empty($qery_strg)) {
-    parse_str($qery_strg, $_GET);
-}
+if(!empty($qery_strg)) parse_str($qery_strg, $_GET);
+$gnre_cgry = 'gnre';
+
 
 switch ($path_prts[3]) {
     case 'filter':
@@ -55,8 +55,8 @@ switch ($path_prts[3]) {
         break;
 
     case 'genre': // New case for genre filtering
-        if(!empty($_GET['gnre'])) { //Check if genre is provided in query parameter
-            $genres = is_array($_GET['gnre']) ? $_GET['gnre'] : [$_GET['gnre']];
+        if(!empty($_GET[$gnre_cgry])) { //Check if genre is provided in query parameter
+            $genres = is_array($_GET[$gnre_cgry]) ? $_GET[$gnre_cgry] : [$_GET[$gnre_cgry]];
             GetBooksByGenre($msql_dtbs, $genres);
         } else {
             http_response_code(400);
