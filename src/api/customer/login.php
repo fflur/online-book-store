@@ -16,14 +16,13 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     http_response_code(405); // Method Not Allowed
     echo json_encode([
         'error' => 'Method not allowed. '.
-            'Only POST requests are supported for registration.'
+            'Only POST requests are supported for login.'
     ]);
     exit;
 }
 
 require_once __DIR__ . '/../database_connector.php';
 require_once __DIR__ . '/customer_procedures.php';
-require_once __DIR__ . '/../../entities/Customer.php';
 
 $rqst_body = file_get_contents('php://input');
 $data = json_decode($rqst_body, true);
@@ -44,8 +43,36 @@ if (!isset($data['user_name']) || !isset($data['pswd'])) {
     exit;
 }
 
-
 $username = $data['user_name'];
 $password = $data['pswd'];
+
+if (!IsUsername($msql_dtbs, $username)) {
+    http_response_code(404);
+    echo json_encode(['error' => 'No such username.']);
+    $msql_dtbs->close();
+    exit;
+}
+
+if (!IsPassword($msql_dtbs, $username, $password)) {
+    http_response_code(401);
+    echo json_encode(['error' => 'Incorrect password.']);
+    exit;
+}
+
+ini_set('session.gc_maxlifetime', 10); // 1800 seconds = 30 minutes
+
+session_set_cookie_params([
+    'lifetime' => 1800,
+    'secure' => true,
+    'httponly' => true,
+    'samesite' => 'Strict',
+]);
+
+session_start();
+session_regenerate_id(true);
+$_SESSION['username'] = $username;
+http_response_code(200);
+echo json_encode(['session_id' => session_id()]);
+$msql_dtbs->close();
 
 ?>
