@@ -24,8 +24,8 @@ require_once __DIR__ . '/../database_connector.php';
 require_once __DIR__ . '/customer_procedures.php';
 require_once __DIR__ . '/../../entities/Customer.php';
 
-$requestBody = file_get_contents('php://input');
-$data = json_decode($requestBody, true);
+$rqst_body = file_get_contents('php://input');
+$data = json_decode($rqst_body, true);
 
 // Check if JSON is parsed or not.
 if ($data === null) {
