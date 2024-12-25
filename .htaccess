@@ -2,7 +2,7 @@ RewriteEngine On
 RewriteBase /src/
 
 # Redirect requests to /src/api/book to /src/api/book/
-RewriteCond %{REQUEST_URI} ^/src/api/book$
+RewriteCond %{REQUEST_URI} ^/src/api/book.php$
 RewriteRule ^(.*)$ $1/ [R=301,L]
 
 # Rewrite requests starting with /src/api/book/ to book.php
