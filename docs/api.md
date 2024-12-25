@@ -1,7 +1,7 @@
 # API DOCUMENTATION
 
 ## The book API
-The API endpoint is http://localhost/src/api/book/. Don't forget the slash.
+The API endpoint is http://localhost/src/api/book.php
 
 This API only accepts GET & OPTIONS requests. The query string can send these
 values:
