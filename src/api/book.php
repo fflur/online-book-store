@@ -41,11 +41,13 @@ if (empty($path_prts[0])) {
 //If the qery_strg is not empty then parse it
 if(!empty($qery_strg)) parse_str($qery_strg, $_GET);
 $gnre_cgry = 'gnre';
+$limit = isset($_GET['limit']) ? (int)$_GET['limit'] : 10;
+$offset = isset($_GET['offset']) ? (int)$_GET['offset'] : 0;
 
 switch ($path_prts[3]) {
     case 'filter':
         if(!empty($_GET))
-            GetBooksByFilter($msql_dtbs, $_GET);
+            GetBooksByFilter($msql_dtbs, $_GET, $limit, $offset);
         else {
             http_response_code(400);
             echo json_encode(['error' => 'No filter provided.']);
