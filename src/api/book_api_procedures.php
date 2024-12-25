@@ -134,7 +134,7 @@ function GetBooksByFilter(
         return;
     }
 
-    $stmt->bind_param($types . "ii", ...$params, $limit, $offset); // Bind limit and offset (integer, integer)
+    $stmt->bind_param($types . "ii", ...array_merge($params, [$limit, $offset]));
 
     if (!$stmt->execute()) {
         http_response_code(500);
@@ -188,7 +188,17 @@ function GetBooksByGenre(
     }
 
     $types = str_repeat("s", count($genres)) . "ii";
-    $stmt->bind_param($types, ...$genres, $limit, $offset);
+
+    // Create an array of references
+    $bind_params = [];
+    $bind_params[] = &$types; // First parameter must be the type string by reference
+    foreach ($genres as &$genre) { // Bind genres by reference
+        $bind_params[] = &$genre;
+    }
+    $bind_params[] = &$limit; // Bind limit by reference
+    $bind_params[] = &$offset; // Bind offset by reference
+
+    call_user_func_array([$stmt, 'bind_param'], $bind_params);
 
     if (!$stmt->execute()) {
         http_response_code(500);
