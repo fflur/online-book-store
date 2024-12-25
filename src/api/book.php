@@ -32,7 +32,7 @@ $rqst_path = str_replace("?".$qery_strg, "", $rqst_uri);
 
 $path_prts = explode('/', trim($rqst_path, '/'));
 
-if (empty($path_prts[0])) {
+if (empty($path_prts[3])) {
     http_response_code(400);
     echo json_encode(['error' => 'No resource specified.']);
     exit;
