@@ -92,14 +92,14 @@ $customer = new Customer(
     $data['desc'] ?? null
 );
 
-if (RegisterCustomer($msql_dtbs, $customer)) {
-    http_response_code(201); // Created
-    echo json_encode(['message' => 'Customer registered successfully.']);
-} else {
+if (!RegisterCustomer($msql_dtbs, $customer)) {
     http_response_code(500);
     echo json_encode(['error' => 'Customer registration failed.']);
+    exit;
 }
 
+http_response_code(201); // Created
+echo json_encode(['message' => 'Customer registered successfully.']);
 $msql_dtbs->close();
 
 ?>
