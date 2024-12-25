@@ -150,10 +150,21 @@ function GetBooksByFilter(
     echo json_encode($books);
 }
 
-function GetBooksByGenre(mysqli $msql_dtbs, array $genres): void {
+function GetBooksByGenre(
+    mysqli $msql_dtbs,
+    array $genres,
+    int $limit = 10,
+    int $offset = 0
+): void {
     if (empty($genres)) {
         http_response_code(400);
         echo json_encode(['error' => 'No genres provided.']);
+        return;
+    }
+
+    if ($limit < 0 || $offset < 0) {
+        http_response_code(400);
+        echo json_encode(['error' => 'Limit and offset must be non-negative.']);
         return;
     }
 
@@ -166,7 +177,7 @@ function GetBooksByGenre(mysqli $msql_dtbs, array $genres): void {
     }
 
     $placeholders = implode(',', array_fill(0, count($genres), '?'));
-    $query = "SELECT * FROM BOOKS WHERE GNRE IN ($placeholders)";
+    $query = "SELECT * FROM books WHERE genre IN ($placeholders) LIMIT ? OFFSET ?";
 
     $stmt = $msql_dtbs->prepare($query);
 
@@ -176,8 +187,8 @@ function GetBooksByGenre(mysqli $msql_dtbs, array $genres): void {
         return;
     }
 
-    $types = str_repeat("s", count($genres)); // All strings
-    $stmt->bind_param($types, ...$genres);
+    $types = str_repeat("s", count($genres)) . "ii";
+    $stmt->bind_param($types, ...$genres, $limit, $offset);
 
     if (!$stmt->execute()) {
         http_response_code(500);
