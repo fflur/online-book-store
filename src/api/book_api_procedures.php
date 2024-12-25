@@ -80,26 +80,37 @@ function GetBooksById(mysqli $msql_dtbs, int $idfr): void {
     echo json_encode($book);
 }
 
-function GetBooksByFilter(mysqli $msql_dtbs, array $filters): void {
+function GetBooksByFilter(
+    mysqli $msql_dtbs,
+    array $filters,
+    int $limit = 10,
+    int $offset = 0
+): void {
     if (empty($filters)) {
         http_response_code(400);
         echo json_encode(['error' => 'No filters provided.']);
         return;
     }
 
-    $allowed_filters = ['athr', 'gnre', 'pblr', 'lnge'];
+    if ($limit < 0 || $offset < 0) {
+        http_response_code(400);
+        echo json_encode(['error' => 'Limit and offset must be non-negative.']);
+        return;
+    }
+
+    $alwd_filters = ['athr', 'gnre', 'pblr', 'lnge'];
     $where_clauses = [];
     $params = [];
     $types = "";
 
     foreach ($filters as $filter => $value) {
-        if (!in_array($filter, $allowed_filters)) {
+        if (!in_array($filter, $alwd_filters)) {
             http_response_code(400);
             echo json_encode(['error' => "Invalid filter: " . $filter]);
             return;
         }
 
-        if ($filter === 'gnre') {
+        if ($filter === 'genre') {
             if (!BookType::IsCategory($value)) {
                 http_response_code(400);
                 echo json_encode(['error' => "Invalid genre: " . $value]);
@@ -107,13 +118,13 @@ function GetBooksByFilter(mysqli $msql_dtbs, array $filters): void {
             }
         }
 
-        $where_clauses[] = "$filter = ?"; // Use = for single values
+        $where_clauses[] = "$filter = ?";
         $params[] = $value;
         $types .= "s"; // Assuming all values are strings. Adjust if needed.
     }
 
-    $where_clause = implode(" OR ", $where_clauses); // Use OR instead of AND
-    $query = "SELECT * FROM books WHERE $where_clause";
+    $where_clause = implode(" OR ", $where_clauses);
+    $query = "SELECT * FROM books WHERE $where_clause LIMIT ? OFFSET ?"; // Added LIMIT and OFFSET
 
     $stmt = $msql_dtbs->prepare($query);
 
@@ -123,7 +134,7 @@ function GetBooksByFilter(mysqli $msql_dtbs, array $filters): void {
         return;
     }
 
-    $stmt->bind_param($types, ...$params);
+    $stmt->bind_param($types . "ii", ...$params, $limit, $offset); // Bind limit and offset (integer, integer)
 
     if (!$stmt->execute()) {
         http_response_code(500);
