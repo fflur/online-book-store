@@ -42,7 +42,6 @@ if (empty($path_prts[0])) {
 if(!empty($qery_strg)) parse_str($qery_strg, $_GET);
 $gnre_cgry = 'gnre';
 
-
 switch ($path_prts[3]) {
     case 'filter':
         if(!empty($_GET))
@@ -75,4 +74,5 @@ switch ($path_prts[3]) {
             echo json_encode(['error' => $path_prts]);
         }
 }
+
 ?>
