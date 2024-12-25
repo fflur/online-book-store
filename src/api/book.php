@@ -60,7 +60,7 @@ switch ($path_prts[3]) {
             $genres = is_array(
                 $_GET[$gnre_cgry]
             ) ? $_GET[$gnre_cgry] : [$_GET[$gnre_cgry]];
-            GetBooksByGenre($msql_dtbs, $genres);
+            GetBooksByGenre($msql_dtbs, $genres, $limit, $offset);
         } else {
             http_response_code(400);
             echo json_encode(['error' => 'No genre provided.']);
