@@ -99,7 +99,7 @@ function IsMailAddress(mysqli $msql_dtbs, string $mail_addr): bool {
 }
 
 function IsUsername(mysqli $msql_dtbs, string $user_name): bool {
-    $stmt = $msql_dtbs->prepare("SELECT ID FROM CUSTOMERS WHERE USERNAME = ?");
+    $stmt = $msql_dtbs->prepare("SELECT USER_NAME FROM CUSTOMERS WHERE USER_NAME = ?");
 
     if ($stmt === false) {
         error_log("Database query preparation failed: " . $msql_dtbs->error);
@@ -119,6 +119,29 @@ function IsUsername(mysqli $msql_dtbs, string $user_name): bool {
     $stmt->close();
 
     return $exists;
+}
+
+function IsPassword(mysqli $msql_dtbs, string $username, string $clnt_hshd_pswd): bool {
+    $stmt = $msql_dtbs->prepare("SELECT PASSWORD FROM CUSTOMERS WHERE USER_NAME = ?");
+
+    if ($stmt === false) {
+        error_log("Database query preparation failed: " . $msql_dtbs->error);
+        return false;
+    }
+
+    $stmt->bind_param("s", $username);
+    $stmt->execute();
+    $stmt->store_result();
+
+    if ($stmt->num_rows === 1) {
+        $stmt->bind_result($dtbs_hshd_pswd);
+        $stmt->fetch();
+        $stmt->close();
+        return hash_equals($dtbs_hshd_pswd, $clnt_hshd_pswd);
+    }
+
+    $stmt->close();
+    return false;
 }
 
 ?>
