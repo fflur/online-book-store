@@ -2,6 +2,7 @@
 
 declare(strict_types = 1);
 
+// Deprecated. Use `IsMailAddress` and `IsUsername` method instead.
 function IsCustomer(mysqli $msql_dtbs, string $username, string $email): bool {
     $stmt = $msql_dtbs->prepare(
         'SELECT EMAIL_ADDRESS FROM CUSTOMERS WHERE USER_NAME = ? OR EMAIL_ADDRESS = ?'
@@ -72,6 +73,52 @@ function RegisterCustomer(mysqli $msql_dtbs, Customer $customer): bool {
 
     $stmt->close();
     return true;
+}
+
+function IsMailAddress(mysqli $msql_dtbs, string $mail_addr): bool {
+    $stmt = $msql_dtbs->prepare("SELECT ID FROM CUSTOMERS WHERE EMAIL = ?");
+
+    if ($stmt === false) {
+        error_log("Database query preparation failed: " . $msql_dtbs->error);
+        return true; // Return true to prevent information disclosure
+    }
+
+    $stmt->bind_param("s", $mail_addr);
+
+    if (!$stmt->execute()) {
+        error_log("Database query execution failed: " . $stmt->error);
+        $stmt->close();
+        return true; // Return true to prevent information disclosure
+    }
+
+    $stmt->store_result();
+    $exists = $stmt->num_rows > 0;
+    $stmt->close();
+
+    return $exists;
+}
+
+function IsUsername(mysqli $msql_dtbs, string $user_name): bool {
+    $stmt = $msql_dtbs->prepare("SELECT ID FROM CUSTOMERS WHERE USERNAME = ?");
+
+    if ($stmt === false) {
+        error_log("Database query preparation failed: " . $msql_dtbs->error);
+        return true; // Prevent information disclosure on error
+    }
+
+    $stmt->bind_param("s", $user_name);
+
+    if (!$stmt->execute()) {
+        error_log("Database query execution failed: " . $stmt->error);
+        $stmt->close();
+        return true; // Prevent information disclosure on error
+    }
+
+    $stmt->store_result();
+    $exists = $stmt->num_rows > 0;
+    $stmt->close();
+
+    return $exists;
 }
 
 ?>
