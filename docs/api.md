@@ -13,9 +13,9 @@ When sending GET request with the 'filter' query, it accepts as of now four
 variables in total with their corresponding values. It will return a set of
 books with their given values with OR logic.
 
-For example, you can send these prefixed variables athr (author), gnre (genre),
-pblr (publisher), lnge (language) with their respective values. Each variable
-can only have one value.
+For example, you can send these prefixed variables **athr** (author), **gnre**
+(genre), **pblr** (publisher), **lnge** (language) with their respective values.
+Each variable can only have one value.
 
 When sending GET request with the 'genre' query, it expects a single value or
 multiple values for the 'gnre' variable.
