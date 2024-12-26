@@ -1,7 +1,8 @@
 <?php
 
 declare(strict_types = 1);
-require_once __DIR__ . '/../utils/BookType.php';
+require_once __DIR__ . '/../entities/Book.php';
+require_once __DIR__ . '/BookType.php';
 
 function GetAllBooks(
     mysqli $msql_dtbs,
@@ -212,6 +213,23 @@ function GetBooksByGenre(
     $stmt->close();
 
     echo json_encode($books);
+}
+
+function GetBookDetail(mysqli $msql_dtbs, int $book_id): ?array {
+    $stmt = $msql_dtbs->prepare('SELECT * FROM BOOKS WHERE ID = ?');
+
+    if ($stmt === false) {
+        error_log("Database query preparation failed: " . $msql_dtbs->error);
+        return null;
+    }
+
+    $stmt->bind_param('i', $book_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $book_data = $result->fetch_assoc();
+    $stmt->close();
+
+    return $book_data; // Return the associative array directly
 }
 
 ?>

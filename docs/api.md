@@ -1,7 +1,8 @@
 # API DOCUMENTATION
 
 ## API ENDPOINTS
-- /src/api/book/book.php
+- /src/api/book/detail.php
+- /src/api/book/filter.php
 - /src/api/customer/register.php
 - /src/api/customer/login.php
 

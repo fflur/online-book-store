@@ -21,8 +21,8 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-require_once __DIR__ . '/../database_connector.php';
-require_once __DIR__ . '/customer_procedures.php';
+require_once __DIR__ . '/../../utils/api_database.php';
+require_once __DIR__ . '/../../utils/api_customer.php';
 
 $rqst_body = file_get_contents('php://input');
 $data = json_decode($rqst_body, true);

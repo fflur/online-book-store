@@ -4,6 +4,7 @@ declare(strict_types = 1);
 require_once __DIR__ . '/Entity.php';
 
 class Book extends Entity {
+    private int $id;
     private int $edtn;
     private int $pblg_year;
     private int $prce;
@@ -17,6 +18,7 @@ class Book extends Entity {
     private ?string $cver_imge_ufrl;
 
     public function __construct(
+        int $id,
         int $edtn,
         int $pblg_year,
         int $prce,
@@ -30,7 +32,8 @@ class Book extends Entity {
         ?string $cver_imge_ufrl = null,
         ?string $desc = null
     ) {
-        parent::__construct($desc);
+      parent::__construct($desc);
+        $this->id = $id;
         $this->edtn = $edtn;
         $this->pblg_year = $pblg_year;
         $this->prce = $prce;
@@ -42,6 +45,10 @@ class Book extends Entity {
         $this->athr = $athr;
         $this->gnre = $gnre;
         $this->cver_imge_ufrl = $cver_imge_ufrl;
+    }
+
+    public function GetId(): int {
+        return $this->id;
     }
 
     public function GetEdition(): int {
