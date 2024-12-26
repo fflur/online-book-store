@@ -229,7 +229,7 @@ function GetBookDetail(mysqli $msql_dtbs, int $book_id): ?array {
     $book_data = $result->fetch_assoc();
     $stmt->close();
 
-    return $book_data; // Return the associative array directly
+    return $book_data;
 }
 
 ?>
