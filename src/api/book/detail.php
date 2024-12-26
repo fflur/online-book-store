@@ -27,7 +27,7 @@ require_once __DIR__ . '/../../entities/Book.php';
 $book_id = $_GET['id'] ?? null;
 
 // Validating inputs
-if ($book_id === null) {
+if ($book_id == null) {
     http_response_code(400);
     echo json_encode(['error' => 'Book ID is required.']);
     $msql_dtbs->close();
