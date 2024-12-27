@@ -33,23 +33,14 @@ if ($book_id == null) {
     exit;
 }
 
-if (!is_numeric($book_id)) {
-    http_response_code(400);
-    echo json_encode(['error' => 'Invalid book ID. Must be an integer.']);
-    $msql_dtbs->close();
-    exit;
-}
-
-$book_id = (int)$book_id;
-
-if ($book_id <= 0) {
+if (!is_numeric($book_id) || $book_id <= 0) {
     http_response_code(400);
     echo json_encode(['error' => 'Invalid book ID. Must be a positive integer.']);
     $msql_dtbs->close();
     exit;
 }
 
-$book = GetBookDetail($msql_dtbs, $book_id);
+$book = GetBookDetail($msql_dtbs, (int) $book_id);
 
 if ($book) echo json_encode($book);
 else {
