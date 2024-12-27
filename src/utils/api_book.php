@@ -125,4 +125,39 @@ function GetBooksBy(
     return $books;
 }
 
+function GetBooksByGenre(mysqli $msql_dtbs, array $genres, int $limit = 10, int $offset = 0): ?array {
+    if (empty($genres)) {
+        // No genres provided, return all books within limit and offset
+        $stmt = $msql_dtbs->prepare("SELECT * FROM books LIMIT ? OFFSET ?");
+        if ($stmt === false) {
+            error_log("Database query preparation failed: " . $msql_dtbs->error);
+            return null;
+        }
+        $stmt->bind_param("ii", $limit, $offset);
+        $stmt->execute();
+        $result = $stmt->get_result();
+        $books = $result->fetch_all(MYSQLI_ASSOC);
+        $stmt->close();
+        return $books;
+    }
+
+    $placeholders = implode(',', array_fill(0, count($genres), '?'));
+    $query = "SELECT * FROM BOOKS WHERE GENRE IN ($placeholders) LIMIT ? OFFSET ?";
+    $stmt = $msql_dtbs->prepare($query);
+
+    if ($stmt === false) {
+        error_log("Database query preparation failed: " . $msql_dtbs->error);
+        return null;
+    }
+
+    $types = str_repeat('s', count($genres)) . 'ii'; // 's' for each genre, 'ii' for limit and offset
+    $params = array_merge($genres, [$limit, $offset]);
+    $stmt->bind_param($types, ...$params);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $books = $result->fetch_all(MYSQLI_ASSOC);
+    $stmt->close();
+    return $books;
+}
+
 ?>
