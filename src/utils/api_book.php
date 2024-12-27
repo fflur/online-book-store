@@ -146,7 +146,7 @@ function GetBooksByGenre(
     }
 
     $placeholders = implode(',', array_fill(0, count($genres), '?'));
-    $query = "SELECT * FROM books WHERE GENRE IN ($placeholders) LIMIT ? OFFSET ?";
+    $query = "SELECT * FROM BOOKS WHERE GENRE IN ($placeholders) LIMIT ? OFFSET ?";
     $stmt = $msql_dtbs->prepare($query);
 
     if ($stmt === false) {
