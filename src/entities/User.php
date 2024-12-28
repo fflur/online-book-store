@@ -4,15 +4,21 @@ declare(strict_types = 1);
 require_once __DIR__ . '/Entity.php';
 
 class User extends Entity {
-    private string $user_name;
-    private string $mail_addr;
-    private string $phne_nmbr;
-    private string $stte;
+    private string $frst_name; // First name.
+    private ?string $mdle_name; // Middle name.
+    private string $last_name, // Last name.
+    private string $user_name; // Username.
+    private string $mail_addr; // Email address.
+    private string $phne_nmbr; // Phone number.
+    private string $stte; // State.
     private string $dsrt; // District.
     private string $strt; // Street or road number.
     private string $home_nmbr; // House or building number.
 
     public function __construct(
+        string $frst_name,
+        ?string $mdle_name,
+        string $last_name,
         string $user_name,
         string $mail_addr,
         string $phne_nmbr,
@@ -20,7 +26,7 @@ class User extends Entity {
         string $dsrt,
         string $strt,
         string $home_nmbr,
-        ?string $desc = null
+        ?string $desc
     ) {
         parent::__construct($desc);
         $this->user_name = $user_name;
@@ -30,6 +36,9 @@ class User extends Entity {
         $this->dsrt = $dsrt;
         $this->strt = $strt;
         $this->home_nmbr = $home_nmbr;
+        $this->frst_name = $frst_name;
+        $this->mdle_name = $mdle_name;
+        $this->last_name = $last_name;
     }
 
     public function GetUsername(): string {
@@ -86,6 +95,30 @@ class User extends Entity {
 
     public function SetHomeNumber(?string $home_nmbr): void {
         $this->home_nmbr = $home_nmbr;
+    }
+
+    public function GetFirstName(): string {
+        return $this->frst_name;
+    }
+
+    public function SetFirstName(string $frst_name): void {
+        $this->frst_name = $frst_name;
+    }
+
+    public function GetMiddleName(): ?string {
+        return $this->mdle_name;
+    }
+
+    public function SetMiddleName(?string $mdle_name): void {
+        $this->mdle_name = $mdle_name;
+    }
+
+    public function GetLastName(): string {
+        return $this->last_name;
+    }
+
+    public function SetLastName(string $last_name): void {
+        $this->last_name = $last_name;
     }
 }
 
