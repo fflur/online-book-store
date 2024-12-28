@@ -4,15 +4,12 @@ declare(strict_types = 1);
 require_once __DIR__ . '/User.php';
 require_once __DIR__ . '/../utils/UserType.php';
 
-class Customer extends User {
-    private string $frst_name;
-    private ?string $mdle_name;
-    private string $last_name;
+final class Customer extends User {
     private UserType $mber_stts = UserType::Normal;
 
     public function __construct(
         string $frst_name,
-        ?string $mdle_name = null,
+        ?string $mdle_name,
         string $last_name,
         string $user_name,
         string $mail_addr,
@@ -21,9 +18,13 @@ class Customer extends User {
         string $dsrt,
         string $strt,
         string $home_nmbr,
-        ?string $desc = null,
+        ?string $desc,
+        UserType $user_type = UserType::Normal,
     ) {
         parent::__construct(
+            $frst_name,
+            $mdle_name,
+            $last_name,
             $user_name,
             $mail_addr,
             $phne_nmbr,
@@ -33,41 +34,12 @@ class Customer extends User {
             $home_nmbr,
             $desc
         );
-        $this->frst_name = $frst_name;
-        $this->mdle_name = $mdle_name;
-        $this->last_name = $last_name;
-    }
 
-    public function GetFirstName(): string {
-        return $this->frst_name;
-    }
-
-    public function SetFirstName(string $frst_name): void {
-        $this->frst_name = $frst_name;
-    }
-
-    public function GetMiddleName(): ?string {
-        return $this->mdle_name;
-    }
-
-    public function SetMiddleName(?string $mdle_name): void {
-        $this->mdle_name = $mdle_name;
-    }
-
-    public function GetLastName(): string {
-        return $this->last_name;
-    }
-
-    public function SetLastName(string $last_name): void {
-        $this->last_name = $last_name;
+        $this->mber_stts = $user_type;
     }
 
     public function GetMemberStatus(): UserType {
         return $this->mber_stts;
-    }
-
-    public function SetMemberStatus(UserType $mber_stts): void {
-        $this->mber_stts = $mber_stts;
     }
 }
 
