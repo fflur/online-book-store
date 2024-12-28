@@ -18,7 +18,6 @@ class Manager extends User {
         string $strt,
         string $home_nmbr,
         ?string $desc = null,
-        UserType $user_type = UserType::Manager,
     ) {
         parent::__construct(
             $frst_name,
