@@ -8,7 +8,7 @@ class Manager extends User {
 
     public function __construct(
         string $frst_name,
-        ?string $mdle_name = null,
+        ?string $mdle_name,
         string $last_name,
         string $user_name,
         string $mail_addr,
@@ -17,7 +17,7 @@ class Manager extends User {
         string $dsrt,
         string $strt,
         string $home_nmbr,
-        ?string $desc = null,
+        ?string $desc,
     ) {
         parent::__construct(
             $frst_name,
