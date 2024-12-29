@@ -1,5 +1,11 @@
 <?php
 
+// IsCustomer
+// RegisterCustomer
+// IsMailAddress
+// IsUsername
+// IsPassword
+
 declare(strict_types = 1);
 
 // Deprecated. Use `IsMailAddress` and `IsUsername` method instead.
