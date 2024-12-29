@@ -8,6 +8,7 @@ class User extends Entity {
     private ?string $mdle_name; // Middle name.
     private string $last_name, // Last name.
     private string $user_name; // Username.
+    private string $pswd;
     private string $mail_addr; // Email address.
     private string $phne_nmbr; // Phone number.
     private string $stte; // State.
@@ -20,6 +21,7 @@ class User extends Entity {
         ?string $mdle_name,
         string $last_name,
         string $user_name,
+        string $pswd,
         string $mail_addr,
         string $phne_nmbr,
         string $stte,
@@ -30,6 +32,7 @@ class User extends Entity {
     ) {
         parent::__construct($desc);
         $this->user_name = $user_name;
+        $this->pswd = $pswd;
         $this->mail_addr = $mail_addr;
         $this->phne_nmbr = $phne_nmbr;
         $this->stte = $stte;
