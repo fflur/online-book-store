@@ -38,4 +38,5 @@ class Manager extends User {
         return $this->mber_stts;
     }
 }
+
 ?>
