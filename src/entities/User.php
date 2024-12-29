@@ -8,7 +8,7 @@ class User extends Entity {
     private ?string $mdle_name; // Middle name.
     private string $last_name, // Last name.
     private string $user_name; // Username.
-    private string $pswd;
+    private string $pswd; // Password.
     private string $mail_addr; // Email address.
     private string $phne_nmbr; // Phone number.
     private string $stte; // State.
