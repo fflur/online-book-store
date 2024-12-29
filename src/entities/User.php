@@ -6,7 +6,7 @@ require_once __DIR__ . '/Entity.php';
 class User extends Entity {
     private string $frst_name; // First name.
     private ?string $mdle_name; // Middle name.
-    private string $last_name, // Last name.
+    private string $last_name; // Last name.
     private string $user_name; // Username.
     private string $pswd; // Password.
     private string $mail_addr; // Email address.
@@ -50,6 +50,10 @@ class User extends Entity {
 
     public function SetUsername(string $user_name): void {
         $this->user_name = $user_name;
+    }
+
+    public function GetPassword(): string {
+        return $this->pswd;
     }
 
     public function GetMailAddr(): string {
