@@ -2,6 +2,7 @@
 
 declare(strict_types = 1);
 require_once __DIR__ . '/User.php';
+require_once __DIR__ . '/../utils/UserType.php';
 
 class Manager extends User {
     private UserType $mber_stts = UserType::Manager;
