@@ -1,5 +1,6 @@
 <?php
 
+// Deprecated: Module will be removed in future versions.
 // IsCustomer
 // RegisterCustomer
 // IsMailAddress
