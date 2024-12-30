@@ -252,6 +252,7 @@ function GetBooksByGenre(
     $result = $stmt->get_result();
     $books = $result->fetch_all(MYSQLI_ASSOC);
     $stmt->close();
+    $new_books = [];
     foreach ($books as $book) {
         $new_book= array_change_key_case($book, CASE_LOWER);
         $new_books[] = $new_book;

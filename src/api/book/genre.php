@@ -36,7 +36,7 @@ if (array_key_exists('offset', $_GET)) {
 }
 
 foreach ($_GET as $key => $value) {
-    if (!is_numeric($key) and ($key === 'limit' || $key === 'offset')) {
+    if (!is_numeric($key) && ($key === 'limit' || $key === 'offset')) {
         http_response_code(400);
         echo json_encode(['message' => 'Invalid! Must be an integer variable.']);
         exit;
@@ -73,13 +73,20 @@ foreach ($genres as $genre) {
 }
 
 $books = GetBooksByGenre( $genres, $limit, $offset);
+$reasons = array(
+  'No books found for given criteria.',
+  'Internal database query failed.'
+);
 
 if ($books) {
     http_response_code(200);
     echo json_encode(['books' => $books]);
 } else {
     http_response_code(500);
-    echo json_encode(['message' => 'Failed to fetch books']);
+    echo json_encode([
+        'message' => 'No books fetched',
+        'reasons' => $reasons
+    ]);
 }
 
 ?>
