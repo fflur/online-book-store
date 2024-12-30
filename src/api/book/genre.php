@@ -74,8 +74,8 @@ foreach ($genres as $genre) {
 
 $books = GetBooksByGenre( $genres, $limit, $offset);
 $reasons = array(
-  'No books found for given criteria.',
-  'Internal database query failed.'
+    'No books found for given criteria.',
+    'Internal database query failed.'
 );
 
 if ($books) {
