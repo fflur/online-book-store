@@ -59,7 +59,7 @@ if ($limit < 0 || $offset < 0) {
 $limit = (int)$limit;
 $offset = (int)$offset;
 $books = GetBooksBy($msql_dtbs, $filters, $limit, $offset);
-if ($books) echo json_encode($books);
+if ($books) echo json_encode(['books' => $books]);
 else echo json_encode([]);
 $msql_dtbs->close();
 
