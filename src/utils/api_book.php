@@ -53,76 +53,7 @@ function GetBookDetail(mysqli $msql_dtbs, int $book_id): ?array {
     $result = $stmt->get_result();
     $book_data = $result->fetch_assoc();
     $stmt->close();
-
     return $book_data;
-}
-
-function GetBooksBy(
-    mysqli $msql_dtbs,
-    array $filters,
-    int $limit = 10,
-    int $offset = 0
-): ?array {
-    if (empty($filters)) {
-        $stmt = $msql_dtbs->prepare("SELECT * FROM BOOKS LIMIT ? OFFSET ?");
-        if ($stmt === false) {
-            error_log("Database query preparation failed: " . $msql_dtbs->error);
-            return null;
-        }
-        $stmt->bind_param("ii", $limit, $offset);
-        $stmt->execute();
-        $result = $stmt->get_result();
-        $books = $result->fetch_all(MYSQLI_ASSOC);
-        $stmt->close();
-        return $books;
-    }
-
-    $where_clauses = [];
-    $params = [];
-    $types = "";
-
-    foreach ($filters as $by => $value) {
-        $by = strtoupper($by); // Convert filter name to uppercase for database columns
-        switch ($by) {
-            case 'PUBLISHING_YEAR':
-            case 'REVIEW_SCORE':
-                if (is_numeric($value)) {
-                    $where_clauses[] = "$by = ?";
-                    $params[] = (int)$value;
-                    $types .= "i";
-                } else {
-                    return null; // Invalid filter value, return null to indicate error
-                }
-                break;
-            case 'GENRE':
-            case 'LANGUAGE':
-                $where_clauses[] = "$by = ?";
-                $params[] = $value;
-                $types .= "s";
-                break;
-            default:
-                return null; // Invalid filter name, return null to indicate error.
-        }
-    }
-
-    $where_clause = "WHERE " . implode(" AND ", $where_clauses);
-    $query = "SELECT * FROM books " . $where_clause . " LIMIT ? OFFSET ?";
-    $stmt = $msql_dtbs->prepare($query);
-
-    if ($stmt === false) {
-        error_log("Database query preparation failed: " . $msql_dtbs->error);
-        return null;
-    }
-
-    $params[] = $limit;
-    $params[] = $offset;
-    $types .= "ii";
-    $stmt->bind_param($types, ...$params);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $books = $result->fetch_all(MYSQLI_ASSOC);
-    $stmt->close();
-    return $books;
 }
 
 function GetBooksByGenre(
