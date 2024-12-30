@@ -21,8 +21,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'POST') {
     exit;
 }
 
-require_once __DIR__ . '/../../utils/api_database.php';
-require_once __DIR__ . '/../../utils/api_customer.php';
+require_once __DIR__ . '/../../utils/auth_utils.php';
 
 $rqst_body = file_get_contents('php://input');
 $data = json_decode($rqst_body, true);
@@ -36,24 +35,18 @@ if ($data === null) {
 }
 
 // Check if username and password are provided
-if (!isset($data['user_name']) || !isset($data['pswd'])) {
+if (!isset($data['username']) || !isset($data['password'])) {
     http_response_code(400);
     echo json_encode(['error' => 'Username and password are required.']);
     $msql_dtbs->close();
     exit;
 }
 
-$username = $data['user_name'];
-$password = $data['pswd'];
+$username = $data['username'];
+$password = $data['password'];
 
-if (!IsUsername($msql_dtbs, $username)) {
-    http_response_code(404);
-    echo json_encode(['error' => 'No such username.']);
-    $msql_dtbs->close();
-    exit;
-}
 
-if (!IsPassword($msql_dtbs, $username, $password)) {
+if (!IsCustomer($username, $password)) {
     http_response_code(401);
     echo json_encode(['error' => 'Incorrect password.']);
     exit;
@@ -70,9 +63,8 @@ session_set_cookie_params([
 
 session_start();
 session_regenerate_id(true);
-$_SESSION['username'] = $username;
+$_SESSION['customer_username'] = $username;
 http_response_code(200);
 echo json_encode(['session_id' => session_id()]);
-$msql_dtbs->close();
 
 ?>
