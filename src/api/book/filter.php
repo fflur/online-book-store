@@ -20,11 +20,10 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
     exit;
 }
 
-require_once __DIR__ . '/../../utils/api_database.php';
-require_once __DIR__ . '/../../utils/api_book.php';
+require_once __DIR__ . '/../../utils/api_utils.php';
 
 $filters = [];
-$allowedFilters = [
+$allowed_filters = [
     'genre',
     'author',
     'publishing_year',
@@ -32,11 +31,9 @@ $allowedFilters = [
     'language'
 ];
 
-foreach ($_GET as $key => $value) {
-    if (in_array(strtolower($key), $allowedFilters)) {
+foreach ($_GET as $key => $value)
+    if (in_array(strtolower($key), $allowed_filters))
         $filters[strtoupper($key)] = $value; // Store filters in uppercase for database columns
-    }
-}
 
 $limit = $_GET['limit'] ?? 10;
 $offset = $_GET['offset'] ?? 0;
@@ -49,6 +46,9 @@ if (!(is_numeric($limit) || is_numeric($offset))) {
     exit;
 }
 
+$limit = (int)$limit;
+$offset = (int)$offset;
+
 if ($limit < 0 || $offset < 0) {
     http_response_code(400);
     echo json_encode(['error' => 'Invalid! Must be a non-negative integer.']);
@@ -56,11 +56,14 @@ if ($limit < 0 || $offset < 0) {
     exit;
 }
 
-$limit = (int)$limit;
-$offset = (int)$offset;
-$books = GetBooksBy($msql_dtbs, $filters, $limit, $offset);
-if ($books) echo json_encode(['books' => $books]);
-else echo json_encode([]);
-$msql_dtbs->close();
+$books = GetBooksBy($filters, $limit, $offset);
+
+if ($books) {
+    http_response_code(200);
+    echo json_encode(['books' => $books]);
+} else {
+    http_response_code(500);
+    echo json_encode(['message' => 'Failed to fetch books']);
+}
 
 ?>
