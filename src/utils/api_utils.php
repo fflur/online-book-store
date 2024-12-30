@@ -261,4 +261,22 @@ function GetBooksByGenre(
     return $new_books;
 }
 
+function GetBookDetail(int $book_id): ?array {
+    $msql_dtbs = GetDatabaseInstance();
+    $stmt = $msql_dtbs->prepare('SELECT * FROM BOOKS WHERE ID = ?');
+
+    if ($stmt === false) {
+        error_log("Database query preparation failed: " . $msql_dtbs->error);
+        return null;
+    }
+
+    $stmt->bind_param('i', $book_id);
+    $stmt->execute();
+    $result = $stmt->get_result();
+    $book_data = $result->fetch_assoc();
+    $stmt->close();
+    $msql_dtbs->close();
+    return $book_data;
+}
+
 ?>

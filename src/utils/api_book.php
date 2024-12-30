@@ -40,20 +40,6 @@ function GetBooksById(mysqli $msql_dtbs, int $idfr): void {
     echo json_encode($book);
 }
 
-function GetBookDetail(mysqli $msql_dtbs, int $book_id): ?array {
-    $stmt = $msql_dtbs->prepare('SELECT * FROM BOOKS WHERE ID = ?');
 
-    if ($stmt === false) {
-        error_log("Database query preparation failed: " . $msql_dtbs->error);
-        return null;
-    }
-
-    $stmt->bind_param('i', $book_id);
-    $stmt->execute();
-    $result = $stmt->get_result();
-    $book_data = $result->fetch_assoc();
-    $stmt->close();
-    return $book_data;
-}
 
 ?>

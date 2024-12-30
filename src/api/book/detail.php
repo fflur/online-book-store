@@ -20,8 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
     exit;
 }
 
-require_once __DIR__ . '/../../utils/api_database.php';
-require_once __DIR__ . '/../../utils/api_book.php';
+require_once __DIR__ . '/../../utils/api_utils.php';
 
 $book_id = $_GET['id'] ?? null;
 
@@ -29,25 +28,30 @@ $book_id = $_GET['id'] ?? null;
 if ($book_id == null) {
     http_response_code(400);
     echo json_encode(['error' => 'Book ID is required.']);
-    $msql_dtbs->close();
     exit;
 }
 
 if (!is_numeric($book_id) || $book_id <= 0) {
     http_response_code(400);
     echo json_encode(['error' => 'Invalid book ID. Must be a positive integer.']);
-    $msql_dtbs->close();
     exit;
 }
 
-$book = GetBookDetail($msql_dtbs, (int) $book_id);
+$book = GetBookDetail((int) $book_id);
+$reasons = array(
+    'No books found for given criteria.',
+    'Internal database query failed.'
+);
 
-if ($book) echo json_encode($book);
-else {
-    http_response_code(404);
-    echo json_encode(['error' => 'Book not found.']);
+if ($book) {
+    http_response_code(200);
+    echo json_encode(['book_detail' => $book]);
+} else {
+    http_response_code(500);
+    echo json_encode([
+        'message' => 'No books fetched',
+        'reasons' => $reasons
+    ]);
 }
-
-$msql_dtbs->close();
 
 ?>
