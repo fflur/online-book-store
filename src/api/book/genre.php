@@ -20,8 +20,7 @@ if ($_SERVER['REQUEST_METHOD'] !== 'GET') {
     exit;
 }
 
-require_once __DIR__ . '/../../utils/api_database.php';
-require_once __DIR__ . '/../../utils/api_book.php';
+require_once __DIR__ . '/../../utils/api_utils.php';
 require_once __DIR__ . '/../../utils/BookType.php';
 
 $genres = []; // Collected genres will be in here.
