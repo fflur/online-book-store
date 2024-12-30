@@ -24,27 +24,33 @@ require_once __DIR__ . '/../../utils/api_utils.php';
 require_once __DIR__ . '/../../utils/BookType.php';
 
 $genres = []; // Collected genres will be in here.
+$limit = $_GET['limit'] ?? 10;
+$offset = $_GET['offset'] ?? 0;
+
+if (array_key_exists('limit', $_GET)) {
+    unset($_GET['limit']);
+}
+
+if (array_key_exists('offset', $_GET)) {
+    unset($_GET['offset']);
+}
 
 foreach ($_GET as $key => $value) {
-    if (!is_numeric($key)) {
+    if (!is_numeric($key) and ($key === 'limit' || $key === 'offset')) {
         http_response_code(400);
         echo json_encode(['message' => 'Invalid! Must be an integer variable.']);
-        $msql_dtbs->close();
         exit;
     }
 
     $genres[] = $value;
 }
 
-$limit = $_GET['limit'] ?? 10;
-$offset = $_GET['offset'] ?? 0;
 if (!is_array($genres)) $genres = [$genres];
 
 // Validate Inputs
 if (!(is_numeric($limit) && is_numeric($offset))) {
     http_response_code(400);
     echo json_encode(['message' => 'Invalid! Must be an integer.']);
-    $msql_dtbs->close();
     exit;
 }
 
@@ -54,7 +60,6 @@ $offset = (int)$offset;
 if ($limit < 0 || $offset < 0) {
     http_response_code(400);
     echo json_encode(['message' => 'Invalid! Must be a non-negative integer.']);
-    $msql_dtbs->close();
     exit;
 }
 
@@ -63,7 +68,6 @@ foreach ($genres as $genre) {
     if (!BookType::IsCategory($genre)) {
         http_response_code(400);
         echo json_encode(['message' => "Invalid! '$genre' doesn't exist."]);
-        $msql_dtbs->close();
         exit;
     }
 }
